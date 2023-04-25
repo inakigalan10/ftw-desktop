@@ -1,4 +1,4 @@
-import React from 'react';;
+import React from 'react';
 import './LandingPage.css'
 import { Link } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ const LandingPage = () => {
         </div>
         <div className='botones-R'>
             <Link to={"/about"} className='item-Links'>
-                ABOUT
+                About
             </Link>
             <Link to={"/contact"} className='item-Links'>
                 Contacta 

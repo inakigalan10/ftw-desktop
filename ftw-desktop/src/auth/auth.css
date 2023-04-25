@@ -1,0 +1,67 @@
+.recuadro {
+    top: 15%;
+    left: 65%;
+    height: 80%;
+    
+    
+}
+.login{
+    top: 35%;
+    left: 65%;
+    height: 45%; 
+}
+.titleAuth{
+    color: black ;
+    font-size: xx-large;
+
+}
+.camposAuth{
+    margin-bottom: 3%;
+}
+.labelAuth{
+    color: black;
+    font-weight: 900;
+    font-size: medium;
+    margin-right: 5%;
+
+}
+
+.inputAuth{
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #989898;
+    color: white;
+    width: 70%;
+    color: black;
+    font-weight: 700;
+
+}
+.botonAuth{
+    margin-top: 4%;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    background-color: #588147;
+
+}
+.botonAuth:hover {
+    background-color: #989898;
+    border: 1px solid black;
+  }
+
+p{
+    padding-top: 5%;
+    font-size:45%;
+}
+option{
+    border-radius: 5px;
+}
+
+.checkbox{
+    font-size: small;
+}
