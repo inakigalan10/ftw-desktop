@@ -1,0 +1,115 @@
+body {
+    overflow: hidden;
+  }
+  
+.Header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+    color: black;
+    padding-left: 2%;
+  }
+  
+  .Header div:first-child {
+    display: flex;
+    align-items: center;
+  }
+  
+  .Header div:last-child {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .Header h2 {
+    margin-right: 10px;
+  }
+  
+  .botones-R {
+    padding-right: 5%;
+  }
+  
+  .item-Links {
+    color: #000000;
+  }
+  
+  .item-Links:hover {
+    color: #989898;
+  }
+  
+  .Header a {
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .Header div:last-child > div {
+    margin-left: 20px;
+  }
+  
+  .boton {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .boton:hover {
+    color: black;
+  }
+  
+  .boton1 {
+    background-color: #588147;
+  }
+  
+  .boton1:hover {
+    background-color: #989898;
+  }
+  
+  .boton2 {
+    background-color: #000000;
+  }
+  
+  .boton2:hover {
+    background-color: #989898;
+  }
+  
+  .video-fondo {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    height: 90%;
+    width: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+
+  .recuadro {
+    position: absolute;
+    top: 25%;
+    left: 60%;
+    width: 25%;
+    height: 60%;
+    background-color: #9898984e;
+    color: white;
+    
+  }
+
+  .recuadro .boton1 {
+    margin-top: 20%;
+    font-size: 35px;
+  }
+  
