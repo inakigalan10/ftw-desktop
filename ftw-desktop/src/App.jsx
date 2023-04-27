@@ -5,14 +5,24 @@ import LandingPage from './landingPage/LandingPage';
 import { Routes, Route } from "react-router-dom";
 import Register from './auth/Register';
 import { Login } from './auth/Login';
-
-
+import Matching from './matching/Matching';
+import Menu from './layaout/Menu';
+import Profile from './Profile/Profile';
+import Matches from './Matches/Matches';
+import Notification from './Notification/Notification';
+import Message from './Message/Message';
 function App() {
 
   return (
     <>
     <Routes>
             <Route path="/" element={
+                          <>
+                            <Menu/>
+                            <Matching/>
+                          </>
+                        } /> 
+            <Route path="/welcome" element={
                   <>
                     <LandingPage />
                   </>
@@ -36,6 +46,30 @@ function App() {
          <Route path="/login" element={
             <>
               <Login/>
+            </>
+        } />
+        <Route path="/profile" element={
+            <>
+              <Menu/>
+              <Profile/>
+            </>
+        } />   
+        <Route path="/matches" element={
+            <>
+              <Menu/>
+              <Matches/>
+            </>
+        } /> 
+        <Route path="/notification" element={
+            <>
+              <Menu/>
+              <Notification/>
+            </>
+        } /> 
+        <Route path="/message" element={
+            <>
+              <Menu/>
+              <Message/>
             </>
         } />       
 

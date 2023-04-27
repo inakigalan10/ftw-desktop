@@ -33,7 +33,7 @@ const LandingPage = () => {
         <source src='/video/pexels-pixabay-854678-3840x2160-30fps.mp4' type='video/mp4' />
     </video>
     <div className='recuadro'>
-        <h1>¿Aún no tienes cuneta en FTW, A qué esperas?</h1>
+        <h1>¿Aún no tienes cuenta en FTW, A qué esperas?</h1>
         <Link to={"/register"} className='boton1 boton'>
                         Crea una cuenta 
                     </Link>
