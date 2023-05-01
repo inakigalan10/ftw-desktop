@@ -62,7 +62,7 @@ const Matching = () => {
         <div>
           <div className="pop-up-Dislike">
           No té ha gustado el perfil 
-            ¡¡¡¡Pobrecillo!!!!!
+            ¡¡¡¡Pobrecillo!!!!
           <div className="progress"></div>
           </div>
           <div className="progress-bar">
