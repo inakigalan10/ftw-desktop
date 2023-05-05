@@ -11,6 +11,7 @@ import Profile from './Profile/Profile';
 import Matches from './Matches/Matches';
 import Notification from './Notification/Notification';
 import Message from './Message/Message';
+import ProfileFotos from './Profile/ProfileFotos';
 function App() {
 
   return (
@@ -52,8 +53,16 @@ function App() {
             <>
               <Menu/>
               <Profile/>
+              
             </>
-        } />   
+        } />
+        <Route path="/profileFotos" element={
+            <>
+              <Menu/>
+              <Profile/>
+              <ProfileFotos/>              
+            </>
+        } />     
         <Route path="/matches" element={
             <>
               <Menu/>
