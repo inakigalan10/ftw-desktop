@@ -1,4 +1,6 @@
 import { About } from './About';
+import { useState } from 'react'
+
 import './App.css';
 import { Contacte } from './Contacte ';
 import LandingPage from './landingPage/LandingPage';
@@ -12,79 +14,83 @@ import Matches from './Matches/Matches';
 import Notification from './Notification/Notification';
 import Message from './Message/Message';
 import ProfileFotos from './Profile/ProfileFotos';
+import { UserContext } from './userContext'
+
 function App() {
+
+  let [usuari, setUsuari] = useState("");
+  let [ authToken,setAuthToken] = useState("");
 
   return (
     <>
-    <Routes>
+        <UserContext.Provider value= { { usuari, setUsuari,authToken,setAuthToken }}>
+        
+        <Routes>
+        {authToken ? (
+          <>
             <Route path="/" element={
-                          <>
-                            <Menu/>
-                            <Matching/>
-                          </>
-                        } /> 
-            <Route path="/welcome" element={
-                  <>
-                    <LandingPage />
-                  </>
-                } />  
-            <Route path="/about" element={
               <>
-                <About/>
+                <Menu />
+                <Matching />
               </>
-          } />   
-
-          <Route path="/contacte" element={
-            <>
-              <Contacte/>
-            </>
-        } />  
-        <Route path="/register" element={
-            <>
-              <Register/>
-            </>
-        } />  
-         <Route path="/login" element={
-            <>
-              <Login/>
-            </>
-        } />
-        <Route path="/profile" element={
-            <>
-              <Menu/>
-              <Profile/>
-              
-            </>
-        } />
-        <Route path="/profileFotos" element={
-            <>
-              <Menu/>
-              <Profile/>
-              <ProfileFotos/>              
-            </>
-        } />     
-        <Route path="/matches" element={
-            <>
-              <Menu/>
-              <Matches/>
-            </>
-        } /> 
-        <Route path="/notification" element={
-            <>
-              <Menu/>
-              <Notification/>
-            </>
-        } /> 
-        <Route path="/message" element={
-            <>
-              <Menu/>
-              <Message/>
-            </>
-        } />       
-
+            } />
+            
+            <Route path="/about" element={<About />} />
+            
+            <Route path="/contacte" element={<Contacte />} />
+            
+            <Route path="/profile" element={
+              <>
+                <Menu />
+                <Profile />
+              </>
+            } />
+            
+            <Route path="/profileFotos" element={
+              <>
+                <Menu />
+                <Profile />
+                <ProfileFotos />
+              </>
+            } />
+            
+            <Route path="/matches" element={
+              <>
+                <Menu />
+                <Matches />
+              </>
+            } />
+            
+            <Route path="/notification" element={
+              <>
+                <Menu />
+                <Notification />
+              </>
+            } />
+            
+            <Route path="/message" element={
+              <>
+                <Menu />
+                <Message />
+              </>
+            } />
+            
+          </>
+        ) : (
+          <>
+            <Route path="/register" element={<Register />} />
+            
+            <Route path="/login" element={<Login />} />
+            
+            <Route path="/welcome" element={<LandingPage />} />
+          </>
+        )}
       </Routes>
+
+      </UserContext.Provider>
+
     </>
   )
 }
 
-export default App
+export default App;
