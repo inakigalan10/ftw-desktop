@@ -1,42 +1,43 @@
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../userContext";
-import { useEffect, useContext, useState } from "react";
 
-export const useSignUp = () => {
 
-  // Obtenemos las variables necesarias del contexto
-  let { usuari, token, setAuthToken } = useContext(UserContext);
-  
-  // Definimos una variable de estado para manejar errores
-  const [error,setError] = useState("");
+export const useRegister = () => {
+  const {authToken, setAuthToken} = useContext(UserContext);
+  const [error, setError] = useState("");
 
-  // Función para realizar el inicio de sesión
-  const doSignUp = async (signUp) => {
-    try {
-      const data = await fetch("http://127.0.0.1:8000/signup/", {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify(signUp),
+  const doRegister = (username, email, password, password_confirm) => {
+    console.log("Comprobando credenciales...");
+    event.preventDefault();
+    const data = {
+      username: username,
+      email: email,
+      password: password,
+      password_confirm: password_confirm,
+    };
+    fetch("http://127.0.0.1:8000/signup/", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((resposta) => {
+        if ('token' in resposta ) {
+          setAuthToken(resposta.token);
+          console.log(authToken);
+        } else {
+          setAuthToken("");
+          setError("error");
+        }
+      })
+      .catch((error) => {
+        console.log("Error de red:", error);
       });
-
-      const resposta = await data.json();
-
-      // Si la respuesta es exitosa, guardamos el token en localStorage y en el contexto
-      if (resposta && resposta.token) {
-        localStorage.setItem('token',JSON.stringify(resposta.token))
-        setAuthToken(resposta.token);
-      } else {
-        // Si la respuesta no es exitosa, establecemos el mensaje de error
-        setError(resposta.message);
-      }
-    } catch {
-      // Si ocurre un error, establecemos el mensaje de error
-      setError("Network error");
-    }
-  }
-
-  // Retornamos las funciones y variables necesarias
-  return {doSignUp, error, setError };
-}
+  };
+  
+  return { doRegister, error, setError };
+  
+};

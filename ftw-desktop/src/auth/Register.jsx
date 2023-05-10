@@ -1,16 +1,26 @@
-  import React, {useState} from 'react';
+  import React, {useState, useContext} from 'react';
   import '../landingPage/LandingPage.css';
   import'./auth.css'
   import { Link } from 'react-router-dom';
+  import { useRegister } from '../hooks/useRegister';
+  import { UserContext } from "../userContext";
+
 
   const Register = () => {
   const [username, setUsername] = useState('');
   const [usernameError, setUsernameError] = useState('');
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [password, setPassword] = useState('');
+  const [password_confirm, setPassword2] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [password2Error, setPassword2Error] = useState('');
+  
+  let { usuari, setUsuari, authToken, setAuthToken } = useContext(UserContext);
 
+  const {doRegister} = useRegister();
+
+  
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -47,6 +57,8 @@
       setPasswordError('La contraseña debe tener al menos una letra y un número, y mínimo 8 caracteres');
       return;
     }
+
+    doRegister(username, email, password, password_confirm);
   }
     return (
       <>
@@ -79,7 +91,10 @@
       <div className='camposAuth'>
             <label className='labelAuth' htmlFor="user">Nombre de Usuario*:</label>
             <br />
-            <input className='inputAuth' type="text" id="user" name="user" value={username} onChange={handleUsernameChange} required/><br />
+            <input className='inputAuth' type="text" id="user" name="user" 
+            value={username} 
+            onChange={handleUsernameChange} 
+            required/><br />
             {usernameError && <div className='error'>{usernameError}</div>}
           </div>
         
@@ -111,7 +126,10 @@
           tu información en la Política de privacidad, así como el uso que hacemos
           de las cookies y tecnologías similares en nuestra Política de cookies.
           Es posible que te enviemos notificaciones por SMS, que podrás desactivar cuando quieras.</p>  
-          <button className='botonAuth' onClick={handleSubmit}>
+        
+          <button className='botonAuth'
+            type='Submit'
+            onClick={handleSubmit}>
             Crear usuario
           </button>
 

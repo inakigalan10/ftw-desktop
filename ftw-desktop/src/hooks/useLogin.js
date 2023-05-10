@@ -19,7 +19,7 @@ export const useLogin = () => {
     })
       .then((response) => response.json())
       .then((resposta) => {
-        if (resposta ) {
+        if ('token' in resposta ) {
           setAuthToken(resposta.token);
           console.log(authToken);
         } else {
