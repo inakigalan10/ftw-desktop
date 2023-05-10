@@ -4,17 +4,21 @@ import'./auth.css'
 import { Link } from 'react-router-dom';
 import { useLogin } from "../hooks/useLogin";
 import { UserContext } from "../userContext";
-import { useForm } from "react-hook-form";
+import { useForm } from "../hooks/useForm";
 
 export const Login = ( ) => {
   let { usuari, setUsuari, authToken, setAuthToken } = useContext(UserContext);
 
-  const { register, handleSubmit } = useForm();
   const  {doLogin} = useLogin();
 
-  const onSubmit = data => console.log(data)
-  //doLogin(data)
+  
+  const { formState, onInputChange} = useForm({
+    username: "",
+    password: "",
+  });
 
+  const {username, password}=formState;
+  
   return (
     <>
         <div className='Header'>
@@ -46,58 +50,47 @@ export const Login = ( ) => {
       <div className='camposAuth'>
         <label className='labelAuth' htmlFor="nombre">Usuario*:</label>
          <br />
-        <input {...register("email", { required:true })}
-            // name="email"
+         <input
+            name="username" // aquí cambia el atributo name a "username"
             type="text"
-            // value={email}
             placeholder="Email or username"
             className='inputAuth'
-             id="nombre"
-            /><br />
+            id="username"
+            onChange={onInputChange}
+            value={username}
+/><br />
+
       </div>
       
       <div className='camposAuth'>
         <label className='labelAuth' htmlFor="password">Password*:</label>
         <br />
         <input 
-        {...register("password", { 
-            
-          required: "Aquest camp és obligatori",
-          minLength: {
-            value: 8,
-            message: "La contrasenya ha de tenir al menys 8 caràcters"
-          },
-          maxLength: {
-            value: 20,
-            message: "La contrasenya ha de tenir com a màxim 20 caràcters"
 
-          },
-          pattern: {
-            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
-            message:
-              "La contrasenya ha de contenir al menys una minúscula, una majúscula, i un número"
-          }
-           })}
-          // name="password"
           type="password"
-          // value={password}
           placeholder="Password"
-        className='inputAuth' 
-         id="password" 
+         className='inputAuth' 
+         id="password"
+         name="password"
+         onChange={onInputChange} 
+
+         value={password}
         /><br />
       </div>
       <div className='camposAuth'>
         <label className='labelAuth checkbox' for="cookies">¿Recordar usuario?</label>
         <input type="checkbox" id="cookies" name="cookies"></input>
     </div>
-    </form>
     <button 
+            type='Submit'
             className='botonAuth'
-            onClick ={ handleSubmit(onSubmit)}  
+            onClick={()=>{doLogin(formState)}}
             // onClick={ (e)=>console.log(e)}
             >
             Iniciar Sesion
     </button>
+    </form>
+    
     </div>
     </>
   )

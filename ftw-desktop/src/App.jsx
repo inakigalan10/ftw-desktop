@@ -18,12 +18,11 @@ import { UserContext } from './userContext'
 
 function App() {
 
-  let [usuari, setUsuari] = useState("");
-  let [ authToken,setAuthToken] = useState("");
+  let [authToken,setAuthToken] = useState("");
 
   return (
     <>
-        <UserContext.Provider value= { { usuari, setUsuari,authToken,setAuthToken }}>
+        <UserContext.Provider value= {{authToken,setAuthToken}}>
         
         <Routes>
         {authToken ? (
@@ -80,7 +79,7 @@ function App() {
           <>
             <Route path="/register" element={<Register />} />
             
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
             
             <Route path="/welcome" element={<LandingPage />} />
           </>

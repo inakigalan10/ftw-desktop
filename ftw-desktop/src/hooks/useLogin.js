@@ -1,41 +1,36 @@
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../userContext";
-import { useEffect, useContext } from "react";
+
 
 export const useLogin = () => {
+  const {authToken, setAuthToken} = useContext(UserContext);
+  const [error, setError] = useState("");
 
-    let { usuari, authToken, setAuthToken } = useContext(UserContext);
+  const doLogin = (formState) => {
+    console.log("Comprobando credenciales...");
+    event.preventDefault();
+    fetch("http://127.0.0.1:8000/login/", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formState),
+    })
+      .then((response) => response.json())
+      .then((resposta) => {
+        if (resposta ) {
+          setAuthToken(resposta.token);
+          console.log(authToken);
+        } else {
+          setAuthToken("");
+          setError("Usuario o contraseña incorrecta");
+        }
+      })
+      .catch((error) => {
+        console.log("Error de red:", error);
+      });
+  };
 
-   
-
-    const doLogin = async (login) => {
-
-        try {
-            console.log("hola")
-            const data = await fetch("http://127.0.0.1:8000/login/", {
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-              method: "POST",
-              body: JSON.stringify(login),
-            });
-            const resposta = await data.json();
-            if (resposta != null) {
-            localStorage.setItem('authToken',JSON.stringify(resposta.authToken))
-              setAuthToken(resposta.authToken);
-              console.log("ZzZZZZZzzZzZZZzz")
-              setUserId (data.user.id)
-              console.log(data.user.id)
-              setEmail(login.email)
-
-            } else {
-              setError(resposta.message);
-            }
-          } catch {
-            setError("Network error");
-          }
-
-    }
-
-    return {doLogin};
-}
+  return { doLogin, error, setError };
+};
