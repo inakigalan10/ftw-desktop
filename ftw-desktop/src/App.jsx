@@ -3,10 +3,7 @@ import { useState } from 'react'
 
 import './App.css';
 import { Contacte } from './Contacte ';
-import LandingPage from './landingPage/LandingPage';
 import { Routes, Route } from "react-router-dom";
-import Register from './auth/Register';
-import { Login } from './auth/Login';
 import Matching from './matching/Matching';
 import Menu from './layaout/Menu';
 import Profile from './Profile/Profile';
@@ -15,18 +12,23 @@ import Notification from './Notification/Notification';
 import Message from './Message/Message';
 import ProfileFotos from './Profile/ProfileFotos';
 import { UserContext } from './userContext'
+import { LoginRegister } from './auth/LoginRegister';
+import CreateProfile from './Profile/CreateProfile';
 
 function App() {
 
   let [authToken,setAuthToken] = useState("");
+  let authTokenA =  JSON.parse(localStorage.getItem("authToken")) || "" 
+
 
   return (
     <>
         <UserContext.Provider value= {{authToken,setAuthToken}}>
         
-        <Routes>
-        {authToken ? (
+       
+        {authToken != "" || authTokenA != "" ? (
           <>
+           <Routes>
             <Route path="/" element={
               <>
                 <Menu />
@@ -37,6 +39,7 @@ function App() {
             <Route path="/about" element={<About />} />
             
             <Route path="/contacte" element={<Contacte />} />
+            <Route path="/createPorfile" element={<CreateProfile />} />
             
             <Route path="/profile" element={
               <>
@@ -73,19 +76,11 @@ function App() {
                 <Message />
               </>
             } />
-            
+            </Routes>
           </>
         ) : (
-          <>
-            <Route path="/register" element={<Register />} />
-            
-            <Route path="/login" element={<Login />} />
-            
-            <Route path="/" element={<LandingPage />} />
-          </>
+          <LoginRegister />
         )}
-      </Routes>
-
       </UserContext.Provider>
 
     </>

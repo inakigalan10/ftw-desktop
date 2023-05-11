@@ -6,8 +6,8 @@ import { useLogin } from "../hooks/useLogin";
 import { UserContext } from "../userContext";
 import { useForm } from "../hooks/useForm";
 
-export const Login = () => {
-  let { usuari, setUsuari, authToken, setAuthToken } = useContext(UserContext);
+export const Login = ({ setLogin }) => {
+  let {authToken, setAuthToken, profile, setProfile } = useContext(UserContext);
 
   const { doLogin } = useLogin();
 
@@ -20,6 +20,7 @@ export const Login = () => {
 
   return (
     <>
+    <div x-show="!isLoginPage">
       <div className='Header'>
         <div>
           <h2>Logo</h2>
@@ -33,16 +34,16 @@ export const Login = () => {
             Contacta
           </Link>
           <div>
-            <Link to={"/register"} className='boton2 boton'>
+            <button onClick={() => setLogin(false)} className='boton2 boton'>
               Crea una cuenta
-            </Link>
+            </button>
           </div>
         </div>
       </div>
       <video autoPlay loop muted className='video-fondo'>
         <source src='/video/pexels-pixabay-854678-3840x2160-30fps.mp4' type='video/mp4' />
       </video>
-      <div className='recuadro login'>
+      <div  className='recuadro login'>
         <h1 className='titleAuth'>Inicia Sesion</h1>
         <form action=''>
           <div className='camposAuth'>
@@ -76,7 +77,7 @@ export const Login = () => {
             <label className='labelAuth checkbox' htmlFor='cookies'>¿Recordar usuario?</label>
             <input type='checkbox' id='cookies' name='cookies'></input>
           </div>
-          <Link to={"/"}>
+         
             <button
               type='Submit'
               className='botonAuth'
@@ -84,9 +85,10 @@ export const Login = () => {
             >
               Iniciar Sesion
             </button>
-          </Link>
+          
         </form>
       </div>
+    </div>
     </>
   )
 }

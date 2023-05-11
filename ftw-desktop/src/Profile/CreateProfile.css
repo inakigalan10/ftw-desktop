@@ -1,0 +1,160 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+  }
+  
+  .cabecera {
+    background-color: #2c3e50;
+    color: #fff;
+    padding: 20px;
+  }
+  
+  .formulario {
+    margin: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  textarea,
+  select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+    background-color: #f2f2f2;
+    margin-bottom: 20px;
+  }
+  
+  .generos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .idiomas{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+  }
+  
+  .checkbox input[type="checkbox"] {
+    position: relative;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .checkbox input[type="checkbox"]:checked::before {
+    content: '\2713';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .generos input[type="checkbox"] {
+    position: relative;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .generos input[type="checkbox"]:checked::before {
+    content: '\2713';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .idiomas input[type="checkbox"] {
+    position: relative;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .idiomas input[type="checkbox"]:checked::before {
+    content: '\2713';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .idiomas label {
+    margin-left: 10px;
+  }
+ 
+  
+  
+  
+  .generos {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+
+  }
+  
+  .idiomas {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    background-color: #2c3e50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  

@@ -21,6 +21,7 @@ export const useLogin = () => {
       .then((resposta) => {
         if ('token' in resposta ) {
           setAuthToken(resposta.token);
+          localStorage.setItem('authToken',JSON.stringify(resposta.token))
           console.log(authToken);
         } else {
           setAuthToken("");

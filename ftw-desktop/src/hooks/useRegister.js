@@ -28,6 +28,7 @@ export const useRegister = () => {
         if ('token' in resposta ) {
           setAuthToken(resposta.token);
           console.log(authToken);
+         
         } else {
           setAuthToken("");
           setError("error");
