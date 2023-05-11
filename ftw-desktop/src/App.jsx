@@ -13,7 +13,7 @@ import Message from './Message/Message';
 import ProfileFotos from './Profile/ProfileFotos';
 import { UserContext } from './userContext'
 import { LoginRegister } from './auth/LoginRegister';
-import CreateProfile from './Profile/CreateProfile';
+import CreateProfile from './Profile/CreateProfile/CreateProfile';
 
 function App() {
 
@@ -39,7 +39,7 @@ function App() {
             <Route path="/about" element={<About />} />
             
             <Route path="/contacte" element={<Contacte />} />
-            <Route path="/createPorfile" element={<CreateProfile />} />
+            <Route path="/createProfile" element={<CreateProfile />} />
             
             <Route path="/profile" element={
               <>

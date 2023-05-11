@@ -1,9 +1,12 @@
 * {
     box-sizing: border-box;
-    margin: 0;
+    margin: -20;
     padding: 0;
+    
   }
   
+
+ 
   body {
     font-family: Arial, sans-serif;
     font-size: 16px;
@@ -19,11 +22,6 @@
     margin: 20px;
   }
   
-  label {
-    display: block;
-    margin-bottom: 10px;
-  }
-  
   textarea,
   select {
     width: 100%;
@@ -33,11 +31,12 @@
     background-color: #f2f2f2;
     margin-bottom: 20px;
   }
-  
+
+
   .generos {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
+    gap: 13px;
   }
   .idiomas{
     display: grid;
@@ -49,6 +48,7 @@
     align-items: center;
     gap: 5px;
     cursor: pointer;
+    font-size: 90%;
   }
   
   .checkbox input[type="checkbox"] {
@@ -130,12 +130,9 @@
   }
   
   .idiomas label {
-    margin-left: 10px;
+    margin-left: 2px;
   }
  
-  
-  
-  
   .generos {
     display: flex;
     flex-wrap: wrap;

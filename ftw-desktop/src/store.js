@@ -1,10 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import userAdminSlices from './slices/admin/AdminUserSlice'
+import profileSlice from './Profile/CreateProfile/slice/profileSlice'
 
 
 export const store = configureStore({
   reducer: {
-    userAdmin:userAdminSlices
-
+    profile:profileSlice,
   },
 })
