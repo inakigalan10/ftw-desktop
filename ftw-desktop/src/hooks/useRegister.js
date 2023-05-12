@@ -15,7 +15,7 @@ export const useRegister = () => {
       password: password,
       password_confirm: password_confirm,
     };
-    fetch("http://127.0.0.1:8000/signup/", {
+    fetch("http://127.0.0.1:8001/signup/", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -27,6 +27,8 @@ export const useRegister = () => {
       .then((resposta) => {
         if ('token' in resposta ) {
           setAuthToken(resposta.token);
+          localStorage.setItem('authToken',JSON.stringify(resposta.token))
+
           console.log(authToken);
          
         } else {

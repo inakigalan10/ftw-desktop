@@ -1,170 +1,187 @@
-import React from 'react'
-import './CreateProfile.css';
-import { useDispatch, useSelector } from "react-redux";
-import { UserContext } from "../../userContext";
-import { addProfile } from "./slice/thunks";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addProfile } from './slice/thunks';
 import { useContext } from "react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { UserContext } from "../../userContext";
+import'./CreateProfile.css'
 
 const CreateProfile = () => {
-    let { authToken } = useContext(UserContext);
+    let { authToken,setAuthToken } = useContext(UserContext);
 
     const dispatch = useDispatch();
-    const { info, error, isLoading } = useSelector((state) => state.profiles) || {};
-    let [formulari, setFormulari] = useState({});
-    
-    const afegir = (data) => {
-        //e.preventDefault();
-    
-        const data2 = { ...data};
-    
-        dispatch(addProfile(data2, authToken));
-    
+    const [perfil, setPerfil] = useState({
+        description: "",
+        player_type: "",
+        play_schedule: "",
+        genres: [],
+        languages: [],
+        country: "",
+    });
+   
+    const handleChange = (event) => {
+        const { name, value, type, checked } = event.target;
+        setPerfil((prevPerfil) => ({
+        ...prevPerfil,
+        [name]: type === 'checkbox' ? [...prevPerfil[name], value] : value,
+        }));
     };
-    
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        setValue,
-      } = useForm();
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log(perfil.genres);
+        console.log(perfil.languages)
+        dispatch(addProfile(perfil, authToken));
+    };
+
   return (
     <>
-    <div className='CreateProfile'>
+      <div className='CreateProfile'>
         <div className='cabecera'>
-            <h1>CREA TU PERFIL PARA CONOCER A GENTE </h1>
+          <h1>CREA TU PERFIL PARA CONOCER A GENTE </h1>
         </div>
         <div className='formulario'>
-        
-		<label htmlFor="descripcion">Descripción:</label>
-		<textarea
-            {...register("description", {
-                required: "El description del profile és obligatori",
-                maxLength: {
-                value: 255,
-                message: "La longitud màxima és de 255 caràcters",
-                },
-            })}
-            id="descripcion"
-            name="descripcion"></textarea>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor='description'>Descripción:</label>
+            <textarea
+              id='descripcion'
+              name='description'
+              value={perfil.description}
+              onChange={handleChange}
+            ></textarea>
 
-		<label htmlFor="tipo-jugador">Tipo de jugador:</label>
+            <label htmlFor='player_type'>Tipo de jugador:</label>
+            <select
+              id='player_type'
+              name='player_type'
+              value={perfil.player_type}
+              onChange={handleChange}
+            >
+              <option value='casual'>Casual</option>
+              <option value='hardcore'>Hardcore</option>
+              <option value='pro'>Professional</option>
+            </select>
+
+            <label htmlFor='play_schedule'>Horario:</label>
+            <select
+              id='play_schedule'
+              name='play_schedule'
+              value={perfil.play_schedule}
+              onChange={handleChange}
+            >
+              <option value='morning'>Morning</option>
+              <option value='afternoon'>Afternoon</option>
+              <option value='evening'>Evening</option>
+              <option value='flexible'>Flexible</option>
+            </select>
+
+            <label htmlFor='genres'>Géneros de Videojuegos:</label>
+            <div className='generos'>
+              <input
+                type='checkbox'
+                id='accion'
+                name='genres'
+                value='accion'
+                onChange={handleChange}
+              />
+              <label className='checkbox' htmlFor='accion'>
+                Acción
+              </label>
+              <br />
+                <input type='checkbox' id='aventura' name='genres' value="adventure" onChange={handleChange}/>
+                <label className='checkbox' htmlFor='aventura'>Aventura</label><br/>
+                <input type='checkbox' id='rol' name='genres' value="rpg" onChange={handleChange}/>
+                <label className='checkbox' htmlFor='rol'>Rol</label><br/>
+                <input type='checkbox' id='disparos-primera' name='genres' value="fps" onChange={handleChange}/>
+                <label className='checkbox' htmlFor='disparos-primera'>Disparos en primera persona</label><br/>
+                <input type='checkbox' id='disparos-tercera' name='genres' value="tps" onChange={handleChange}/>
+                <label className='checkbox' htmlFor='disparos-tercera'>Disparos en tercera persona</label><br/>
+                <input type='checkbox' id='plataformas' name='genres' value="platformer" onChange={handleChange}/>
+                <label className='checkbox' htmlFor='plataformas'>Plataformas</label><br/>
+                <input type='checkbox' id='estrategia' name='genres' value="strategy" onChange={handleChange}/>
+                <label className='checkbox' htmlFor='estrategia'>Estrategia</label><br/>
+                <input type='checkbox' id='simulacion' name='genres' value="simulation" onChange={handleChange}/>
+                <label className='checkbox' htmlFor='simulacion'>Simulación</label><br/>
+                <input type='checkbox' id='deportes' name='genres' value="sports" onChange={handleChange}/>
+                <label className='checkbox' htmlFor='deportes'>Deportes</label><br/>
+                <input type='checkbox' id='lucha' name='genres' value="fighting" onChange={handleChange}/>
+                <label className='checkbox' htmlFor='lucha'>Lucha</label><br/>
+                <input type='checkbox' id='musica' name='genres' value="music" onChange={handleChange}/>
+                <label className='checkbox' htmlFor='musica'>Música</label><br/>
+                <input type='checkbox' id='puzzle' name='genres' value="puzzle" onChange={handleChange}/>
+                <label className='checkbox' htmlFor='puzzle'>Puzzle</label><br/>
+                <input type='checkbox' id='carreras' name='genres' value="racing" onChange={handleChange}/>
+                <label className='checkbox' htmlFor='carreras'>Carreras</label><br/>
+                <input type='checkbox' id='mundo-abierto' name='genres' value="sandbox" onChange={handleChange}/>
+                <label className='checkbox' htmlFor='mundo-abierto'>Mundo abierto</label><br/>
+                <input type='checkbox' id='terror' name='genres' value="horror" onChange={handleChange}/>
+                <label className='checkbox' htmlFor='terror'>Terror</label><br/>
+                <input type='checkbox' id='sigilo' name='genres' value='stealth' onChange={handleChange}/>
+                <label className='checkbox' htmlFor='sigilo'>Sigilo</label><br/>
+                <input type='checkbox' id='supervivencia' name='genres' value="survival" onChange={handleChange}/>
+                <label className='checkbox' htmlFor='supervivencia'>Supervivencia</label><br/>
+            </div>
+
+            <label htmlFor='languages'>languages:</label>
+            <div className='idiomas'>
+                <input
+                    type='checkbox'
+                    name='languages'
+                    value='en'
+                    id='english'
+                    onChange={handleChange}
+                />
+                <label className='checkbox' htmlFor='english'>
+                    English
+                </label>
+                <input type='checkbox' name='languages' value="es" id='espanol' onChange={handleChange}/><label className='checkbox' htmlFor='espanol'>Español</label>
+                <input type='checkbox' name='languages' value="fr" id='francais' onChange={handleChange}/><label className='checkbox' htmlFor='francais'>Français</label>
+                <input type='checkbox' name='languages' value="de" id='deutsch' onChange={handleChange}/><label className='checkbox' htmlFor='deutsch'>Deutsch</label>
+                <input type='checkbox' name='languages' value="zh-hans" id='chino-simplificado' onChange={handleChange}/><label className='checkbox'  htmlFor='chino-simplificado'>简体中文</label>
+                <input type='checkbox' name='languages' value="ja" id='japones' onChange={handleChange}/><label className='checkbox' htmlFor='japones'>日本語</label>
+                <input type='checkbox' name='languages' value="pt" id='portugues' onChange={handleChange}/><label className='checkbox' htmlFor='portugues'>Português</label>
+                <input type='checkbox' name='languages' value="ru" id='ruso' onChange={handleChange}/><label className='checkbox' htmlFor='ruso'>Pусский</label>
+                <input type='checkbox' name='languages' value="ca" id='catalan' onChange={handleChange}/><label className='checkbox' htmlFor='catalan'>Català</label>
+                <input type='checkbox' name='languages' value="gl" id='gallego' onChange={handleChange}/><label className='checkbox' htmlFor='gallego'>Galego</label>
+                <input type='checkbox' name='languages' value="eu" id='euskera' onChange={handleChange}/><label className='checkbox' htmlFor='euskera'>Euskara</label>
+            </div>
+            <div>
+
+        <label htmlFor='country'>País:</label>
 		<select
-            {...register("tipo-jugador", {
-                required: "El tipo de jugador és obligatòria",
-            })}
-            id="tipo-jugador" 
-            name="tipo-jugador">
-			<option value="casual">Casual</option>
-			<option value="hardcore">Hardcore</option>
-			<option value="pro">Professional</option>
+            id='country'
+            name='country'
+            value={perfil.country}
+            onChange={handleChange}
+            >
+			<option value='ES'>España</option>
+			<option value='US'>Estados Unidos</option>
+			<option value='MX'>México</option>
+			<option value='AR'>Argentina</option>
+			<option value='CO'>Colombia</option>
+			<option value='PE'>Perú</option>
+			<option value='CL'>Chile</option>
+			<option value='BR'>Brasil</option>
+			<option value='FR'>Francia</option>
+			<option value='DE'>Alemania</option>
+			<option value='IT'>Italia</option>
+			<option value='UK'>Reino Unido</option>
+			<option value='JP'>Japón</option>
+			<option value='CN'>China</option>
+			<option value='KR'>Corea del Sur</option>
+			<option value='RU'>Rusia</option>
+			<option value='AU'>Australia</option>
+			<option value='CA'>Canadá</option>
+			<option value='IN'>India</option>
+			<option value='ZA'>Sudáfrica</option>
 		</select>
+            </div>
 
-		<label htmlFor="horario">Horario:</label>
-		<select
-             {...register("horario", {
-                required: "El horario és obligatòria",
-            })}
-            id="horario"
-            name="horario">
-			<option value="morning">Morning</option>
-			<option value="afternoon">Afternoon</option>
-			<option value="evening">Evening</option>
-			<option value="flexible">Flexible</option>
-		</select>
-
-		<label htmlFor="generos">Géneros de Videojuegos:</label><br/>
-        <div className='generos'>
-            <input type="checkbox" id="accion" name="generos[]" value="action"/>
-            <label className="checkbox" htmlFor="accion">Acción</label><br/>
-            <input type="checkbox" id="aventura" name="generos[]" value="adventure"/>
-            <label className="checkbox" htmlFor="aventura">Aventura</label><br/>
-            <input type="checkbox" id="rol" name="generos[]" value="rpg"/>
-            <label className="checkbox" htmlFor="rol">Rol</label><br/>
-            <input type="checkbox" id="disparos-primera" name="generos[]" value="fps"/>
-            <label className="checkbox" htmlFor="disparos-primera">Disparos en primera persona</label><br/>
-            <input type="checkbox" id="disparos-tercera" name="generos[]" value="tps"/>
-            <label className="checkbox" htmlFor="disparos-tercera">Disparos en tercera persona</label><br/>
-            <input type="checkbox" id="plataformas" name="generos[]" value="platformer"/>
-            <label className="checkbox" htmlFor="plataformas">Plataformas</label><br/>
-            <input type="checkbox" id="estrategia" name="generos[]" value="strategy"/>
-            <label className="checkbox" htmlFor="estrategia">Estrategia</label><br/>
-            <input type="checkbox" id="simulacion" name="generos[]" value="simulation"/>
-            <label className="checkbox" htmlFor="simulacion">Simulación</label><br/>
-            <input type="checkbox" id="deportes" name="generos[]" value="sports"/>
-            <label className="checkbox" htmlFor="deportes">Deportes</label><br/>
-            <input type="checkbox" id="lucha" name="generos[]" value="fighting"/>
-            <label className="checkbox" htmlFor="lucha">Lucha</label><br/>
-            <input type="checkbox" id="musica" name="generos[]" value="music"/>
-            <label className="checkbox" htmlFor="musica">Música</label><br/>
-            <input type="checkbox" id="puzzle" name="generos[]" value="puzzle"/>
-            <label className="checkbox" htmlFor="puzzle">Puzzle</label><br/>
-            <input type="checkbox" id="carreras" name="generos[]" value="racing"/>
-            <label className="checkbox" htmlFor="carreras">Carreras</label><br/>
-            <input type="checkbox" id="mundo-abierto" name="generos[]" value="sandbox"/>
-            <label className="checkbox" htmlFor="mundo-abierto">Mundo abierto</label><br/>
-            <input type="checkbox" id="terror" name="generos[]" value="horror"/>
-            <label className="checkbox" htmlFor="terror">Terror</label><br/>
-            <input type="checkbox" id="sigilo" name="generos[]" value="stealth"/>
-            <label className="checkbox" htmlFor="sigilo">Sigilo</label><br/>
-            <input type="checkbox" id="supervivencia" name="generos[]" value="survival"/>
-            <label className="checkbox" htmlFor="supervivencia">Supervivencia</label><br/>
+            <button type='submit'>Enviar</button>
+          </form>
         </div>
-
-
-        <label htmlFor="idiomas">Idiomas:</label>
-        <div className='idiomas'>
-            <input type="checkbox" name="idiomas[]" value="en" id="english"/><label className="checkbox" htmlFor="english">English</label>
-            <input type="checkbox" name="idiomas[]" value="es" id="espanol"/><label className="checkbox" htmlFor="espanol">Español</label>
-            <input type="checkbox" name="idiomas[]" value="fr" id="francais"/><label className="checkbox" htmlFor="francais">Français</label>
-            <input type="checkbox" name="idiomas[]" value="de" id="deutsch"/><label className="checkbox" htmlFor="deutsch">Deutsch</label>
-            <input type="checkbox" name="idiomas[]" value="zh-hans" id="chino-simplificado"/><label className="checkbox"  htmlFor="chino-simplificado">简体中文</label>
-            <input type="checkbox" name="idiomas[]" value="ja" id="japones"/><label className="checkbox" htmlFor="japones">日本語</label>
-            <input type="checkbox" name="idiomas[]" value="pt" id="portugues"/><label className="checkbox" htmlFor="portugues">Português</label>
-            <input type="checkbox" name="idiomas[]" value="ru" id="ruso"/><label className="checkbox" htmlFor="ruso">Pусский</label>
-            <input type="checkbox" name="idiomas[]" value="ca" id="catalan"/><label className="checkbox" htmlFor="catalan">Català</label>
-            <input type="checkbox" name="idiomas[]" value="gl" id="gallego"/><label className="checkbox" htmlFor="gallego">Galego</label>
-            <input type="checkbox" name="idiomas[]" value="eu" id="euskera"/><label className="checkbox" htmlFor="euskera">Euskara</label>
-        </div>
-
-        <label htmlFor="pais">País:</label>
-		<select
-            {...register("pais", {
-                required: "El pais és obligatòria",
-            })}
-            id="pais" 
-            name="pais">
-			<option value="ES">España</option>
-			<option value="US">Estados Unidos</option>
-			<option value="MX">México</option>
-			<option value="AR">Argentina</option>
-			<option value="CO">Colombia</option>
-			<option value="PE">Perú</option>
-			<option value="CL">Chile</option>
-			<option value="BR">Brasil</option>
-			<option value="FR">Francia</option>
-			<option value="DE">Alemania</option>
-			<option value="IT">Italia</option>
-			<option value="UK">Reino Unido</option>
-			<option value="JP">Japón</option>
-			<option value="CN">China</option>
-			<option value="KR">Corea del Sur</option>
-			<option value="RU">Rusia</option>
-			<option value="AU">Australia</option>
-			<option value="CA">Canadá</option>
-			<option value="IN">India</option>
-			<option value="ZA">Sudáfrica</option>
-		</select>
-        <button
-            onClick={handleSubmit(afegir)}
-            type="submit">
-            Guardar informacion
-        </button>
-        </div>
-    </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default CreateProfile
+export default CreateProfile;

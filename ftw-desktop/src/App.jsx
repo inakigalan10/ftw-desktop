@@ -1,5 +1,5 @@
 import { About } from './About';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import './App.css';
 import { Contacte } from './Contacte ';
@@ -18,7 +18,12 @@ import CreateProfile from './Profile/CreateProfile/CreateProfile';
 function App() {
 
   let [authToken,setAuthToken] = useState("");
-  let authTokenA =  JSON.parse(localStorage.getItem("authToken")) || "" 
+  useEffect (() =>{
+    const token = localStorage.getItem("authToken");
+    if (token){
+      setAuthToken(token);
+    }
+  },[]);
 
 
   return (
@@ -26,7 +31,7 @@ function App() {
         <UserContext.Provider value= {{authToken,setAuthToken}}>
         
        
-        {authToken != "" || authTokenA != "" ? (
+        {authToken ? (
           <>
            <Routes>
             <Route path="/" element={

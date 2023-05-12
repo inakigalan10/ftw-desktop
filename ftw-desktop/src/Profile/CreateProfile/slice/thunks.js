@@ -99,7 +99,7 @@ import {
       
       // Enviam dades a l'aPI i recollim resultat
       const prejson = await fetch(
-        "http://127.0.0.1:8000/update-profile/" + id,
+        "http://127.0.0.1:8001/update-profile/" + id,
         {
           headers: {
             Accept: "application/json",
@@ -120,29 +120,31 @@ import {
     };
   };
   
-  export const addProfile = (formulari, authToken) => {
+  export const addProfile = (perfil, authToken) => {
     return async (dispatch, getState) => {
+        console.log(perfil);
+      
       dispatch(startLoadingProfiles());
-      let {  description, player_type, play_schedule, genres, languages, countr } =
-        formulari;
+      console.log("dins del thunks...." + authToken)
+      let { description, player_type, play_schedule, genres, languages, country } =
+        perfil;
   
       const formData = new FormData();
      
-      formData.append("visibility", visibility);
       formData.append("description", description);
       formData.append("player_type", player_type);
       formData.append("play_schedule", play_schedule);
       formData.append("genres", genres);
       formData.append("languages", languages);
       formData.append("country", country);
-  
+      
       // Enviam dades a l'aPI i recollim resultat
       const prejson = await fetch(
-        "http://127.0.0.1:8000/create-profile/",
+        "http://127.0.0.1:8001/create-profile/",
         {
           headers: {
             Accept: "application/json",
-            Authorization: "Bearer " + authToken,
+            Authorization: "Token " + authToken,
           },
           method: "POST",
           body: formData,
@@ -153,7 +155,9 @@ import {
       console.log(resposta);
       if (resposta.success == true) {
         dispatch(setInfo("Profile Correctament Desat"));
-      } else {
+      }else if(resposta.detail="Invalid token"){
+        localStorage.removeItem("authToken");
+      }else {
         dispatch(setError(resposta.message));
       }
     };
