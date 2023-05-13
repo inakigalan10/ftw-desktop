@@ -1,21 +1,41 @@
 import React, { useState } from 'react';
+import { useContext } from "react";
+import { useEffect } from "react";
 import './matching.css';
 import { AiFillLike } from 'react-icons/ai';
 import { AiFillDislike } from 'react-icons/ai';
+import { useDispatch, useSelector } from "react-redux";
+import { UserContext } from "../userContext";
+import { Like, dislike, getProfileMatch } from './slice/thunks';
+
 
 const Matching = () => {
+  const dispatch = useDispatch();
+  
+  let {authToken, setAuthToken } = useContext(UserContext);
+  console.log(authToken);
+  useEffect(() => {
+    dispatch(getProfileMatch(authToken))
+  }, []);
+
+  const {matching, isLoading, error,info} = useSelector(state => state.matching)
+  console.log(matching)
+  
   const [showPopUpLike, setShowPopUpLike] = useState(false);
   const [ShowPopUpDislike, setShowPopUpDislike] = useState(false);
 
   const handleLikeClick = () => {
     setShowPopUpLike(true);
-    // Aquí podrías agregar más lógica relacionada al like
+    dispatch(Like(authToken, matching.id));
+    dispatch(getProfileMatch(authToken));
   };
-
+  
   const handleDislikeClick = () => {
     setShowPopUpDislike(true);
-    // Aquí podrías agregar más lógica relacionada al dislike
+    dispatch(dislike(authToken, matching.id));
+    dispatch(getProfileMatch(authToken));
   };
+  
 
   return (
     <div className='main'>
@@ -27,18 +47,27 @@ const Matching = () => {
           <img src='./img/avatar.jpeg' alt='' />
         </div>
         <div className='name-user-card'>
-          <h1>@Pepitopalotes</h1>
+          <h1>{matching.username}</h1>
         </div>
         <div className='info-user-card'>
           <div className='horario-user-card'>
-            <p>noches 23:00h-02:00h</p>
+            <p>{matching.play_schedule}</p>
+          </div>
+          <div className='horario-user-card'>
+            <p>{matching.country}</p>
+          </div>
+          <div className='horario-user-card'>
+            <p>{matching.genres}</p>
+          </div>
+          <div className='horario-user-card'>
+            <p>{matching.player_type}</p>
+          </div>
+          <div className='horario-user-card'>
+            <p>{matching.languages}</p>
           </div>
           <div className='desc-user-card'>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-              error ab voluptatem ut ipsa neque voluptas blanditiis repellat!
-              Aliquam totam vero amet fuga praesentium in saepe nesciunt
-              accusamus. Aliquid, aut?
+            {matching.description}
             </p>
           </div>
         </div>

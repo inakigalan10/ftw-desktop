@@ -22,7 +22,6 @@ export const Profile = () => {
   console.log(profile)
   return (
     <>
-     
         <>
           <div className="page-container"> 
             <div className='header_profile'>
