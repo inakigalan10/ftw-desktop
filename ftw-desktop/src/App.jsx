@@ -6,14 +6,13 @@ import { Contacte } from './Contacte ';
 import { Routes, Route } from "react-router-dom";
 import Matching from './matching/Matching';
 import Menu from './layaout/Menu';
-import Profile from './Profile/Profile';
 import Matches from './Matches/Matches';
 import Notification from './Notification/Notification';
 import Message from './Message/Message';
-import ProfileFotos from './Profile/ProfileFotos';
 import { UserContext } from './userContext'
 import { LoginRegister } from './auth/LoginRegister';
 import CreateProfile from './Profile/CreateProfile/CreateProfile';
+import { Profile } from './Profile/Profile';
 
 function App() {
 
@@ -46,20 +45,13 @@ function App() {
             <Route path="/contacte" element={<Contacte />} />
             <Route path="/createProfile" element={<CreateProfile />} />
             
-            <Route path="/profile" element={
+            <Route path="/profile/:name" element={
               <>
                 <Menu />
-                <Profile />
+                <Profile/>
               </>
             } />
             
-            <Route path="/profileFotos" element={
-              <>
-                <Menu />
-                <Profile />
-                <ProfileFotos />
-              </>
-            } />
             
             <Route path="/matches" element={
               <>

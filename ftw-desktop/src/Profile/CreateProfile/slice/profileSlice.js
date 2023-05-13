@@ -2,15 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   profiles: [],
-  profile: { 
-    user: { id: 0},
+  profile: {
+    username: "", 
     description: "",
-    player_type:"",
-    play_schedule:"",
-    genres:["action","adventure", "strategy"],
-    languages:["es","en"],
-    country:"",   
+    player_type: "",
+    play_schedule: "",
+    genres: [],
+    languages: [],
+    country: "",   
   },
+  isLoading: false,
+  error: "",
+  info: "",
 };
 
 export const profileSlice = createSlice({
@@ -20,14 +23,17 @@ export const profileSlice = createSlice({
     startLoadingProfiles: (state) => {
       state.isLoading = true;
     },
+
     setProfiles: (state, action) => {
       state.profiles = action.payload;
       state.isLoading = false;
     },
+
     setProfile: (state, action) => {
       state.profile = action.payload;
       state.isLoading = false;
     },
+    
     setInfo: (state, action) => {
       state.info = action.payload;
       state.error = "";
@@ -48,5 +54,5 @@ export const {
   setProfile,
   setInfo,
   setError,
-} =  profileSlice.actions;
+} = profileSlice.actions;
 export default profileSlice.reducer;
