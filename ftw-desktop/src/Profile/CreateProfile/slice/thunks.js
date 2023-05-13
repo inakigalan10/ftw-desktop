@@ -99,7 +99,7 @@ import {
       
       // Enviam dades a l'aPI i recollim resultat
       const prejson = await fetch(
-        "http://127.0.0.1:8001/update-profile/" + id,
+        "http://127.0.0.1:8000/update-profile/" + id,
         {
           headers: {
             Accept: "application/json",
@@ -122,45 +122,45 @@ import {
   
   export const addProfile = (perfil, authToken) => {
     return async (dispatch, getState) => {
-        console.log(perfil);
-      
       dispatch(startLoadingProfiles());
-      console.log("dins del thunks...." + authToken)
-      let { description, player_type, play_schedule, genres, languages, country } =
+      let {  description, player_type, play_schedule, genres, languages, country} =
         perfil;
   
-      const formData = new FormData();
-     
-      formData.append("description", description);
-      formData.append("player_type", player_type);
-      formData.append("play_schedule", play_schedule);
-      formData.append("genres", genres);
-      formData.append("languages", languages);
-      formData.append("country", country);
-      
-      // Enviam dades a l'aPI i recollim resultat
-      const prejson = await fetch(
-        "http://127.0.0.1:8001/create-profile/",
-        {
-          headers: {
-            Accept: "application/json",
-            Authorization: "Token " + authToken,
-          },
+        const formData = new FormData();
+        formData.append("description", description);
+        formData.append("player_type", player_type);
+        formData.append("play_schedule", play_schedule);
+        formData.append("genres", genres);
+        formData.append("languages", languages);
+        formData.append("country", country);
+        
+        console.log(formData);
+        
+        const boundary = "boundary_" + Date.now().toString(16);
+        const requestOptions = {
           method: "POST",
+          headers: {
+            Authorization: "Token " + authToken,
+            "Content-Type": `multipart/form-data; boundary=${boundary}`,
+          },
           body: formData,
-        }
-      );
-      const resposta = await prejson.json();
-  
-      console.log(resposta);
-      if (resposta.success == true) {
-        dispatch(setInfo("Profile Correctament Desat"));
-      }else if(resposta.detail="Invalid token"){
-        localStorage.removeItem("authToken");
-      }else {
-        dispatch(setError(resposta.message));
-      }
-    };
+        };
+        
+        fetch("http://127.0.0.1:8000/create-profile/", requestOptions)
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            if (data.success === true) {
+              dispatch(setInfo("Perfil correctamente guardado"));
+            } else {
+              dispatch(setError(data.message));
+            }
+          })
+          .catch(error => {
+            console.error(error);
+            dispatch(setError("Error en la solicitud"));
+          });       
+    }; 
   };
   
 

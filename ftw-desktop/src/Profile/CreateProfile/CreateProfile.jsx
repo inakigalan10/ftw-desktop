@@ -28,8 +28,7 @@ const CreateProfile = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(perfil.genres);
-        console.log(perfil.languages)
+        
         dispatch(addProfile(perfil, authToken));
     };
 
