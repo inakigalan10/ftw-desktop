@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfile } from './CreateProfile/slice/thunks';
+import { getProfile } from './slice/thunks';
 import { UserContext } from "../userContext";
 
 import './Profile.css';

@@ -3,7 +3,7 @@ import { UserContext } from "../userContext";
 
 
 export const useRegister = () => {
-  const {authToken, setAuthToken} = useContext(UserContext);
+  const {authToken, setAuthToken, id, setId} = useContext(UserContext);
   const [error, setError] = useState("");
 
   const doRegister = (username, email, password, password_confirm) => {
@@ -23,10 +23,13 @@ export const useRegister = () => {
       },
       body: JSON.stringify(data),
     })
+   
       .then((response) => response.json())
       .then((resposta) => {
         if ('token' in resposta ) {
+          console.log(resposta);
           setAuthToken(resposta.token);
+          
           localStorage.setItem('authToken',JSON.stringify(resposta.token))
 
           console.log(authToken);

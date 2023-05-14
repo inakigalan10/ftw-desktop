@@ -3,7 +3,7 @@ import { UserContext } from "../userContext";
 
 
 export const useLogin = () => {
-  const {authToken, setAuthToken} = useContext(UserContext);
+  const {authToken, setAuthToken, id, setId} = useContext(UserContext);
   const [error, setError] = useState("");
 
   const doLogin = (formState) => {
@@ -21,8 +21,10 @@ export const useLogin = () => {
       .then((resposta) => {
         if ('token' in resposta ) {
           setAuthToken(resposta.token);
+          setId(resposta.user.id);
           localStorage.setItem('authToken',JSON.stringify(resposta.token))
           console.log(authToken);
+          console.log(id);
         } else {
           setAuthToken("");
           setError("Usuario o contraseña incorrecta");

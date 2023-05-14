@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addProfile } from './slice/thunks';
+import { addProfile } from '../slice/thunks';
 import { useContext } from "react";
 import { UserContext } from "../../userContext";
 import'./CreateProfile.css'
