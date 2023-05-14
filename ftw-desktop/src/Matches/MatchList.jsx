@@ -11,26 +11,29 @@ export const MatchList = ({v}) => {
   return (
     <>
       <div key={v.id}>
-        {v.user1_data.user_id === id ? (
-          <Link to={"/profile/" + v.user2_data.user_id}>
-            <div>
-              <div></div>
-              <div className='username'>
-                <h1>{v.user2_data.username}</h1>
+          {v.user1_data.user_id === id ? (
+            <Link to={"/profile/" + v.user2_data.user_id}>
+              {/* <div className='card'>
+                <div className='foto'>
+                  <img src="./public/img/img-user.jpg" alt="" />
+                </div>
+                <div className='username'>
+                  <h1>{v.user2_data.username}</h1>
+                </div>
+              </div> */}sda
+            </Link>
+          ) : (
+            <Link to={"/profile/" + v.user1_data.user_id}>
+              <div>
+                <div></div>
+                <div className='username'>
+                  <h1>{v.user1_data.username}</h1>
+                </div>
               </div>
-            </div>
-          </Link>
-        ) : (
-          <Link to={"/profile/" + v.user1_data.user_id}>
-            <div>
-              <div></div>
-              <div className='username'>
-                <h1>{v.user1_data.username}</h1>
-              </div>
-            </div>
-          </Link>
-        )}
-      </div>
+            </Link>
+          )}
+        </div>
+
     </>
   );
 };

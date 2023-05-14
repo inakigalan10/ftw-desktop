@@ -9,6 +9,7 @@ import { UserContext } from '../userContext';
 
 
 
+
 export const NotificationsList = () => {
   const dispatch = useDispatch();
   const {matchs = [], isLoading} = useSelector((state) => state.match);
@@ -29,7 +30,7 @@ export const NotificationsList = () => {
           <div className='header'>
             <h1>Listado de Notificaciones</h1>
           </div>
-          <div>
+          <div >
               {matchs.map((v, i) => {
                     return (
                       <>

@@ -5,8 +5,7 @@ import { useContext } from "react";
 import { UserContext } from "../userContext";
 import { MatchList } from './MatchList';
 import { getMatchs } from './slice/thunks';
-
-
+import './matches.css'
 
 export const MatchsList = () => {
   const dispatch = useDispatch();
@@ -28,7 +27,7 @@ export const MatchsList = () => {
           <div className='header'>
             <h1>LListat de matchs</h1>
           </div>
-          <div>
+          <div className='cards'>
               {matchs.map((v, i) => {
                     return (
                       <>

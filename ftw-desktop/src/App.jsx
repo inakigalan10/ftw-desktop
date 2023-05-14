@@ -46,7 +46,7 @@ function App() {
             <Route path="/contacte" element={<Contacte />} />
             <Route path="/createProfile" element={<CreateProfile />} />
             
-            <Route path="/profile/:name" element={
+            <Route path="/profile/:id" element={
               <>
                 <Menu />
                 <Profile/>

@@ -17,6 +17,7 @@ export const NotificationList = ({v}) => {
               <div></div>
               <div className='username'>
                 <h1>Nuevo match</h1>
+                <p>{v.message}</p>
               </div>
             </div>
           
