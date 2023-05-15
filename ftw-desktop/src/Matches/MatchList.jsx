@@ -2,6 +2,8 @@ import React, { useState, useContext } from 'react';
 import { UserContext } from "../userContext";
 import { Link } from 'react-router-dom';
 import { FaRegPaperPlane } from 'react-icons/fa';
+import { BsThreeDotsVertical } from 'react-icons/bs';
+
 
 export const MatchList = ({v}) => {
   const { authToken, setAuthToken, id, setId } = useContext(UserContext);
@@ -51,14 +53,12 @@ export const MatchList = ({v}) => {
               </div>
               </Link>
               <div className='action-match' >
-                <div className='message-match'>
-                  <FaRegPaperPlane/>
-                </div>
+                <Link to={`/chat/${v.chat_id}`}><div className='message-match'><FaRegPaperPlane/></div></Link>
                 <div
                   className='more-action-match'
                   onClick={() => setShowMenu(!showMenu)} // Cambia el estado del menú al hacer clic
                 >
-                  ...
+                  <BsThreeDotsVertical/>
                 </div>
                 {showMenu && ( // Muestra el menú si el estado es verdadero
                   <div className='menu-match'>
@@ -83,13 +83,13 @@ export const MatchList = ({v}) => {
               </Link>
               <div className='action-match' >
                 <div className='message-match'>
-                  <FaRegPaperPlane/>
+                  <Link to={`/chat/${v.chat_id}`}><div className='message-match'><FaRegPaperPlane/></div></Link>
                 </div>
                 <div
                   className='more-action-match'
                   onClick={() => setShowMenu(!showMenu)} // Cambia el estado del menú al hacer clic
                 >
-                  ...
+                 <BsThreeDotsVertical/>
                 </div>
                 {showMenu && ( // Muestra el menú si el estado es verdadero
                   <div className='menu-match'>

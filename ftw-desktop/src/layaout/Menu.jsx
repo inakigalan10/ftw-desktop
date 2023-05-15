@@ -16,7 +16,7 @@ const Menu = () => {
   const isActive = (path) => {
     return location.pathname === path ? "active" : "";
   };
-  let {authToken, setAuthToken, profile, setProfile, username, setUsername } = useContext(UserContext);
+  let {authToken, setAuthToken,username, setUsername } = useContext(UserContext);
 
 
   return (
@@ -45,11 +45,6 @@ const Menu = () => {
           <div className="icono-menu">
             <FaUserAlt />
           </div>
-          <div>
-            <Link to={"/profile"} style={{ color: "black" }}>
-              Profile
-            </Link>
-          </div>
         </div>
         <div className={`menu-item ${isActive("/matches")}`}>
           <div className="icono-menu">
@@ -76,7 +71,7 @@ const Menu = () => {
             <TbMessages />
           </div>
           <div>
-            <Link to={"/message"} style={{ color: "black" }}>
+            <Link to={"/messages"} style={{ color: "black" }}>
               Message
             </Link>
           </div>

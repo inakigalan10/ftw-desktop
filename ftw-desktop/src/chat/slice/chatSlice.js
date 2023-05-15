@@ -1,36 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  notifications: [],
-  notification: {
-    notification_id: 0, 
-    user_id: 0,
-    message: "",
-    read: false,
+  chats: [],
+  chat: {
+    chat_id: 0, 
     created_at: "",
-    chat_id: null,
-    match_id: null,   
+    participant_id: 0,
+    participant_name: "",
   },
   isLoading: false,
   error: "",
   info: "",
 };
 
-export const notificationSlice = createSlice({
-  name: "notification",
+export const chatSlice = createSlice({
+  name: "chat",
   initialState,
   reducers: {
-    startLoadingNotifications: (state) => {
+    startLoadingChats: (state) => {
       state.isLoading = true;
     },
 
-    setNotifications: (state, action) => {
-      state.notifications = action.payload;
+    setChats: (state, action) => {
+      state.chats = action.payload;
       state.isLoading = false;
     },
 
-    setNotification: (state, action) => {
-      state.notification = action.payload;
+    setChat: (state, action) => {
+      state.chat = action.payload;
       state.isLoading = false;
     },
     
@@ -49,10 +46,10 @@ export const notificationSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
-  startLoadingNotifications,
-  setNotifications,
-  setNotification,
+  startLoadingChats,
+  setChats,
+  setChat,
   setInfo,
   setError,
-} = notificationSlice.actions;
-export default notificationSlice.reducer;
+} = chatSlice.actions;
+export default chatSlice.reducer;

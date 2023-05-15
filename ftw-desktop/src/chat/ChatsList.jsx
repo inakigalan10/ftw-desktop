@@ -3,19 +3,19 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useContext } from "react";
 import { UserContext } from "../userContext";
-import { MatchList } from './MatchList';
-import { getMatchs } from './slice/thunks';
-import './matches.css'
+import { ChatList } from './ChatList';
+import { getChats } from './slice/thunks';
 
-export const MatchsList = () => {
+export const ChatsList = () => {
   const dispatch = useDispatch();
-  const {matchs = [], isLoading} = useSelector((state) => state.match);
+  const {chats = [], isLoading} = useSelector((state) => state.chat);
   const { authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser } = useContext(UserContext);
 
-
+  
   useEffect(() => {
-    dispatch(getMatchs(authToken))
+    dispatch(getChats(authToken))
   }, [])
+  console.log(chats)
   return (
     <>
       {isLoading ? (
@@ -24,16 +24,16 @@ export const MatchsList = () => {
         <>
           <div>
             <div className='header-match'>
-              <h1>LListat de matchs</h1>
+              <h1>LListat de chats</h1>
             </div>
-            {matchs.length === 0 ? (
-              <h1>No tienes matches</h1>
+            {chats.length === 0 ? (
+              <h1>No tienes chats</h1>
             ) : (
               <div className='cards-match'>
-                {matchs.map((v, i) => {
+                {chats.map((v, i) => {
                   return (
                     <>
-                      <MatchList key={v.id} v={v} />
+                      <ChatList key={v.id} v={v} />
                     </>
                   )
                 })}

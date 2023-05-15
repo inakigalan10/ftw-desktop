@@ -6,19 +6,20 @@ import { Contacte } from './Contacte ';
 import { Routes, Route } from "react-router-dom";
 import Matching from './matching/Matching';
 import Menu from './layaout/Menu';
-import MessagesList from '../src/Message/MessagesList'
 import { UserContext } from './userContext'
 import { LoginRegister } from './auth/LoginRegister';
 import CreateProfile from './Profile/CreateProfile/CreateProfile';
 import { Profile } from './Profile/Profile';
 import { MatchsList } from './Matches/MatchsList';
 import { NotificationsList } from './Notification/NotificationsList';
+import MessagesList from './chat/Message/MessagesList';
+import {ChatsList} from './chat/ChatsList';
 
 function App() {
 
   let [authToken,setAuthToken] = useState("");
-  let [id,setId]= useState("");
-  let [username,setUsername]= useState("")
+  let [idUser,setIdUser]= useState("");
+  let [usernameUser,setUsernameUser]= useState("")
   useEffect (() =>{
     const token = localStorage.getItem("authToken");
     if (token){
@@ -29,7 +30,7 @@ function App() {
 
   return (
     <>
-        <UserContext.Provider value= {{authToken,setAuthToken,id,setId,username, setUsername}}>
+        <UserContext.Provider value= {{authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser}}>
         
        
         {authToken ? (
@@ -69,12 +70,22 @@ function App() {
               </>
             } />
             
-            <Route path="/message" element={
+            <Route path="/chat/:id" element={
               <>
-                <Menu />
-                <MessagesList />
+                <Menu/>
+                <MessagesList/>
+
+                
               </>
             } />
+
+            <Route path="/messages" element={
+              <>
+                <Menu/>
+                <ChatsList/>               
+              </>
+            } />
+            
             </Routes>
           </>
         ) : (

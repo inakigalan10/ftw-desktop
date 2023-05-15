@@ -3,6 +3,8 @@ import matchingSlice from './matching/slice/matchingSlice'
 import matchSlice from './Matches/slice/matchSlice'
 import profileSlice from './Profile/slice/profileSlice'
 import notificationSlice from './Notification/slice/notificationSlice'
+import messageSlice from './chat/Message/slice/messageSlice'
+import chatSlice from './chat/slice/chatSlice'
 
 
 
@@ -11,7 +13,9 @@ export const store = configureStore({
     profile:profileSlice,
     matching:matchingSlice,
     match:matchSlice,
-    notification:notificationSlice
+    notification:notificationSlice,
+    message:messageSlice,
+    chat:chatSlice
     
   },
 })
