@@ -1,4 +1,4 @@
-.header {
+.header-match {
     position: fixed;
     top:0;
     left:18%;
@@ -10,14 +10,14 @@
     padding-top: 2%;
   }
 
-  .cards {
+  .cards-match {
     margin-top: 25%;
     border: 1px solid green;
     display: flex;
     flex-direction: column;
   }
   
-  .card {
+  .card-match {
     border: 1px solid yellow;
     width: 180%;
     height: 80px;
@@ -28,7 +28,7 @@
     margin-top: 50%;
   }
   
-  .card::after {
+  .card-match::after {
     content: '';
     position: absolute;
     bottom: 0;
