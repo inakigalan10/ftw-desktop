@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import '../layaout/layaout.css';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { AiFillHome } from 'react-icons/ai';
@@ -7,6 +7,8 @@ import { BsFire } from 'react-icons/bs';
 import { AiFillNotification } from 'react-icons/ai';
 import { TbMessages } from 'react-icons/tb';
 import { Link, useLocation } from 'react-router-dom';
+import { UserContext } from "../userContext";
+
 
 const Menu = () => {
   const location = useLocation();
@@ -14,6 +16,8 @@ const Menu = () => {
   const isActive = (path) => {
     return location.pathname === path ? "active" : "";
   };
+  let {authToken, setAuthToken, profile, setProfile, username, setUsername } = useContext(UserContext);
+
 
   return (
     <div className="menu-container">
@@ -22,8 +26,8 @@ const Menu = () => {
           <img src="./img/img-user.jpg" alt="User avatar" />
         </div>
         <div>
-          <h1 className="user-name">John Doe</h1>
-          <p className="user-email">@fhkdsjdj</p>
+          <h1 className="user-name">{username}</h1>
+          
         </div>
       </div>
       <div className="menu-items">

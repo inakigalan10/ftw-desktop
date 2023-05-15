@@ -50,7 +50,7 @@ import {
         body: JSON.stringify(bodyData),
       };
   
-      fetch('http://127.0.0.1:8000/like-dislike/' + id +"/", requestOptions)
+      fetch('http://127.0.0.1:8000/like-dislike/', requestOptions)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);

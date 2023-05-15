@@ -1,19 +1,19 @@
 import {
-  startLoadingNotifications,
-  setNotifications,
-  setNotification,
+  startLoadingMatchs,
+  setMatchs,
+  setMatch,
   setInfo,
   setError,
-  } from "./notificationSlice";
+  } from "./matchSlice";
   
   // Obtenim els matchs
-  export const getNotifications = (authToken) => {
+  export const getMatchs = (authToken) => {
     return async (dispatch, getState) => {
-      dispatch(startLoadingNotifications());
+      dispatch(startLoadingMatchs());
   
       try {
         const data = await fetch(
-          "http://127.0.0.1:8000/notification-list/" ,
+          "http://127.0.0.1:8000/match-list" ,
           {
             headers: {
               Accept: "application/json",
@@ -25,12 +25,12 @@ import {
         );
         const resposta = await data.json();
         console.log(resposta);
-        console.log("Token " + authToken);
-        dispatch(setNotifications(resposta.data));
+        dispatch(setMatchs(resposta.data));
       } catch (e) {
         console.log(e);
         //dispatch(setError(e))
       }
     };
   };
+  
   

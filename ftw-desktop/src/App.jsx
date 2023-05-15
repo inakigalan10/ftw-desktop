@@ -6,7 +6,7 @@ import { Contacte } from './Contacte ';
 import { Routes, Route } from "react-router-dom";
 import Matching from './matching/Matching';
 import Menu from './layaout/Menu';
-import Message from './Message/Message';
+import MessagesList from '../src/Message/MessagesList'
 import { UserContext } from './userContext'
 import { LoginRegister } from './auth/LoginRegister';
 import CreateProfile from './Profile/CreateProfile/CreateProfile';
@@ -17,7 +17,8 @@ import { NotificationsList } from './Notification/NotificationsList';
 function App() {
 
   let [authToken,setAuthToken] = useState("");
-  let [id,setId]= useState("")
+  let [id,setId]= useState("");
+  let [username,setUsername]= useState("")
   useEffect (() =>{
     const token = localStorage.getItem("authToken");
     if (token){
@@ -28,7 +29,7 @@ function App() {
 
   return (
     <>
-        <UserContext.Provider value= {{authToken,setAuthToken,id,setId}}>
+        <UserContext.Provider value= {{authToken,setAuthToken,id,setId,username, setUsername}}>
         
        
         {authToken ? (
@@ -71,7 +72,7 @@ function App() {
             <Route path="/message" element={
               <>
                 <Menu />
-                <Message />
+                <MessagesList />
               </>
             } />
             </Routes>
