@@ -19,26 +19,29 @@ export const MatchsList = () => {
   }, [])
   return (
     <>
-     {isLoading ? (
+      {isLoading ? (
         "Espera...."
       ) : (
-      <>
-        <div>
-          <div className='header'>
-            <h1>LListat de matchs</h1>
-          </div>
-          <div className='cards'>
-              {matchs.map((v, i) => {
-                    return (
-                      <>
-                        {( <MatchList key={v.id} v={v}/>)} 
-                      </>
-                    )
+        <>
+          <div>
+            <div className='header-match'>
+              <h1>LListat de matchs</h1>
+            </div>
+            {matchs.length === 0 ? (
+              <h1>No tienes matches</h1>
+            ) : (
+              <div className='cards-match'>
+                {matchs.map((v, i) => {
+                  return (
+                    <>
+                      <MatchList key={v.id} v={v} />
+                    </>
+                  )
                 })}
+              </div>
+            )}
           </div>
-        </div>
-        
-      </>
+        </>
       )}
     </>
   );

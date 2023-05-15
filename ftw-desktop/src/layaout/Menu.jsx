@@ -19,7 +19,7 @@ const Menu = () => {
     <div className="menu-container">
       <div className="user-info">
         <div>
-          {/* <img src="./img/img-user.jpg" alt="User avatar" /> */}
+          <img src="./img/img-user.jpg" alt="User avatar" />
         </div>
         <div>
           <h1 className="user-name">John Doe</h1>
