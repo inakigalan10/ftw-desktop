@@ -7,15 +7,23 @@ import { AiFillDislike } from 'react-icons/ai';
 import { useDispatch, useSelector } from "react-redux";
 import { UserContext } from "../userContext";
 import { Like, dislike, getProfileMatch } from './slice/thunks';
+import Cookies from 'js-cookie';
 
 
 const Matching = () => {
   const dispatch = useDispatch();
   
-  let {authToken, setAuthToken } = useContext(UserContext);
+  const {authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser, sessionCookie, setSessionCookie} = useContext(UserContext);
+
   console.log(authToken);
   useEffect(() => {
-    dispatch(getProfileMatch(authToken))
+    dispatch(getProfileMatch(authToken));
+    const sessionCookie = Cookies.get('Set-Cookie');
+    console.log("desde el thunk",sessionCookie)
+    setSessionCookie(sessionCookie);
+    
+    console.log("esto"+ sessionCookie)
+
   }, []);
 
   const {matching, isLoading, error,info} = useSelector(state => state.matching)
@@ -23,16 +31,16 @@ const Matching = () => {
   
   const [showPopUpLike, setShowPopUpLike] = useState(false);
   const [ShowPopUpDislike, setShowPopUpDislike] = useState(false);
-
+  
   const handleLikeClick = () => {
     setShowPopUpLike(true);
-    dispatch(Like(authToken, matching.id));
+    dispatch(Like(authToken, sessionCookie));
     dispatch(getProfileMatch(authToken));
   };
   
   const handleDislikeClick = () => {
     setShowPopUpDislike(true);
-    dispatch(dislike(authToken, matching.id));
+    dispatch(dislike(authToken, sessionCookie));
     dispatch(getProfileMatch(authToken));
   };
   

@@ -20,7 +20,9 @@ function App() {
 
   let [authToken,setAuthToken] = useState("");
   let [idUser,setIdUser]= useState("");
-  let [usernameUser,setUsernameUser]= useState("")
+  let [usernameUser,setUsernameUser]= useState("");
+  const [sessionCookie, setSessionCookie] = useState('');
+
   useEffect (() =>{
     const token = localStorage.getItem("authToken");
     if (token){
@@ -39,7 +41,7 @@ function App() {
 
   return (
     <>
-        <UserContext.Provider value= {{authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser}}>
+        <UserContext.Provider value= {{authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser, sessionCookie, setSessionCookie}}>
         
        
         {authToken ? (
