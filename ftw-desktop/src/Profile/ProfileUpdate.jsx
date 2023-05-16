@@ -10,7 +10,7 @@ import { FaPencilAlt } from 'react-icons/fa';
 
 import './Profile.css';
 
-export const Profile = () => {
+export const ProfileUpdate = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
  
@@ -163,7 +163,18 @@ export const Profile = () => {
     }
   };
   
- 
+  const [isHovered, setIsHovered] = useState(false);
+
+
+    const handleImageChange = (e) => {
+      if (id == idUser) {
+        const file = e.target.files[0];
+        setIsHovered(true);
+        // Aquí puedes realizar las acciones necesarias con el archivo seleccionado
+      } else {
+        console.log('No tienes permiso para editar la foto');
+      }
+    };
   
 
   return (
@@ -171,23 +182,24 @@ export const Profile = () => {
       {profile && profile.user && profile.user.username ? (
         <div className="page-container-profile">
           <div className="header_profile">
-          <div className={`imagen-profile`}>
-            <img src="../public/img/img-user.jpg" alt="User avatar" />       
+          <div className={`imagen-profile ${isHovered ? 'hovered' : ''}`}>
+            <label htmlFor="profile-image" className="image-label">
+            <img src="../public/img/img-user.jpg" alt="User avatar" />
+            
+            {isHovered && <FaPencilAlt className="edit-icon" />}
+            </label>
+            <input
+            type="file"
+            id="profile-image-update"
+            accept="image/*"
+            onChange={handleImageChange}
+            style={{ display: 'none' }}
+            />
           </div>
+
             <div className="name_profile">
               <h1 className="user_name_profile-profile">{profile.user.username}</h1>
             </div>
-            {id == idUser ?(
-              <>
-              <Link
-                      to={"/profile/edit/" + id}
-                    >
-              <FaPencilAlt className="edit-icon" />
-              </Link>
-              </>
-            ):(
-              <></>
-            )}
           </div>
           <div className='infos-perfil'>
             <div className="info-perfil">

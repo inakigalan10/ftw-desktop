@@ -3,7 +3,7 @@ import { UserContext } from "../userContext";
 
 
 export const useRegister = () => {
-  const {authToken, setAuthToken, id, setId, username, setUsername} = useContext(UserContext);
+  const {authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser} = useContext(UserContext);
   const [error, setError] = useState("");
 
   const doRegister = (username, email, password, password_confirm) => {
@@ -29,11 +29,14 @@ export const useRegister = () => {
         if ('token' in resposta ) {
           console.log(resposta);
           setAuthToken(resposta.token);
-          setId(resposta.user.id)
-          setUsername(resposta.user.username)
+          setIdUser(resposta.user.id)
+          setUsernameUser(resposta.user.username)
 
           +
           localStorage.setItem('authToken', resposta.token)
+          localStorage.setItem('UsernameUser', resposta.user.username)
+          localStorage.setItem('idUser', resposta.user.id)
+
 
           console.log(authToken);
          
