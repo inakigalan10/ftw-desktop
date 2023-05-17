@@ -3,7 +3,7 @@ import { UserContext } from "../userContext";
 
 
 export const useRegister = () => {
-  const {authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser} = useContext(UserContext);
+  const {authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser, sessionCookie, setSessionCookie, idProfile,setIdProfile} = useContext(UserContext);
   const [error, setError] = useState("");
 
   const doRegister = (username, email, password, password_confirm) => {
@@ -31,11 +31,13 @@ export const useRegister = () => {
           setAuthToken(resposta.token);
           setIdUser(resposta.user.id)
           setUsernameUser(resposta.user.username)
+          setIdProfile(resposta.user.profile)
 
           +
           localStorage.setItem('authToken', resposta.token)
           localStorage.setItem('UsernameUser', resposta.user.username)
           localStorage.setItem('idUser', resposta.user.id)
+          localStorage.setItem('idProfile', resposta.user.profile)
 
 
           console.log(authToken);

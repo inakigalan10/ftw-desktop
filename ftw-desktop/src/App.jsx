@@ -1,9 +1,9 @@
 import { About } from './About';
 import { useEffect, useState } from 'react'
+import { Navigate, Routes, Route } from 'react-router-dom';
 
 import './App.css';
 import { Contacte } from './Contacte ';
-import { Routes, Route } from "react-router-dom";
 import Matching from './matching/Matching';
 import Menu from './layaout/Menu';
 import { UserContext } from './userContext'
@@ -21,6 +21,7 @@ function App() {
   let [authToken,setAuthToken] = useState("");
   let [idUser,setIdUser]= useState("");
   let [usernameUser,setUsernameUser]= useState("");
+  let [idProfile,setIdProfile]= useState("");
   const [sessionCookie, setSessionCookie] = useState('');
 
   useEffect (() =>{
@@ -36,12 +37,17 @@ function App() {
     if (idUser) {
       setIdUser(idUser)
     }
+    const profile =localStorage.getItem("idProfile");
+    if (profile) {
+      setIdProfile(profile)
+    }
   },[]);
 
+  console.log(idProfile);
 
   return (
     <>
-        <UserContext.Provider value= {{authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser, sessionCookie, setSessionCookie}}>
+        <UserContext.Provider value= {{authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser, sessionCookie, setSessionCookie, idProfile,setIdProfile}}>
         
        
         {authToken ? (
@@ -68,7 +74,7 @@ function App() {
             <Route path="/about" element={<About />} />
             
             <Route path="/contacte" element={<Contacte />} />
-            <Route path="/createProfile" element={<CreateProfile />} />
+            
             
             <Route path="/profile/:id" element={
               <>
@@ -110,6 +116,11 @@ function App() {
             } />
             
             </Routes>
+            {idProfile === null ? (
+              <Navigate to="/createProfile" />
+            ) : (
+              <Navigate to="/" />
+            )}
           </>
         ) : (
           <LoginRegister />
