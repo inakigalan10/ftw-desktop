@@ -11,7 +11,7 @@ import { LoginRegister } from './auth/LoginRegister';
 import CreateProfile from './Profile/CreateProfile/CreateProfile';
 import { Profile } from './Profile/Profile';
 import { MatchsList } from './Matches/MatchsList';
-
+import { NotificationsList } from './Notification/NotificationsList';
 import MessagesList from './chat/Message/MessagesList';
 import {ChatsList} from './chat/ChatsList';
 import { ProfileUpdate } from './Profile/ProfileUpdate';
@@ -91,7 +91,12 @@ function App() {
               </>
             } />
             
-            
+            <Route path="/notification" element={
+              <>
+                <Menu />
+                <NotificationsList />
+              </>
+            } />
             
             <Route path="/chat/:id" element={
               <>
