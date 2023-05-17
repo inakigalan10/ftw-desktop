@@ -53,16 +53,7 @@ const Menu = () => {
             </Link>
           </div>
         </div>
-        <div className={`menu-item ${isActive("/notification")}`}>
-          <div className="icono-menu">
-            <AiFillNotification />
-          </div>
-          <div>
-            <Link to={"/notification"} style={{ color: "black" }}>
-              Notification
-            </Link>
-          </div>
-        </div>
+        
         <div className={`menu-item ${isActive("/message")}`}>
           <div className="icono-menu">
             <TbMessages />
