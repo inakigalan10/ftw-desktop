@@ -6,23 +6,19 @@ import './App.css';
 import { Contacte } from './Contacte ';
 import Matching from './matching/Matching';
 import Menu from './layaout/Menu';
+import MessagesList from '../src/Message/MessagesList'
 import { UserContext } from './userContext'
 import { LoginRegister } from './auth/LoginRegister';
 import CreateProfile from './Profile/CreateProfile/CreateProfile';
 import { Profile } from './Profile/Profile';
 import { MatchsList } from './Matches/MatchsList';
 import { NotificationsList } from './Notification/NotificationsList';
-import MessagesList from './chat/Message/MessagesList';
-import {ChatsList} from './chat/ChatsList';
 
 function App() {
 
   let [authToken,setAuthToken] = useState("");
-  let [idUser,setIdUser]= useState("");
-  let [usernameUser,setUsernameUser]= useState("");
-  let [idProfile,setIdProfile]= useState("");
-  const [sessionCookie, setSessionCookie] = useState('');
-
+  let [id,setId]= useState("");
+  let [username,setUsername]= useState("")
   useEffect (() =>{
     const token = localStorage.getItem("authToken");
     if (token){
@@ -30,7 +26,7 @@ function App() {
     }
   },[]);
 
-  console.log(idProfile);
+
 
   return (
     <>
@@ -74,28 +70,14 @@ function App() {
               </>
             } />
             
-            <Route path="/chat/:id" element={
+            <Route path="/message" element={
               <>
-                <Menu/>
-                <MessagesList/>
-
-                
+                <Menu />
+                <MessagesList />
               </>
             } />
-
-            <Route path="/messages" element={
-              <>
-                <Menu/>
-                <ChatsList/>               
-              </>
-            } />
-            
             </Routes>
-            {idProfile === null ? (
-              <Navigate to="/createProfile" />
-            ) : (
-              <Navigate to="/" />
-            )}
+           
           </>
         ) : (
           <LoginRegister />

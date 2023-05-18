@@ -3,7 +3,7 @@ import { UserContext } from "../userContext";
 import { Link } from 'react-router-dom'
 
 export const NotificationList = ({v}) => {
-  const { authToken, setAuthToken, id, setId } = useContext(UserContext)
+  let { authToken, setAuthToken, id, setId } = useContext(UserContext)
 
   console.log(v)
 

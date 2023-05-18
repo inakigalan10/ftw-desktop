@@ -25,12 +25,12 @@ export const notificationSlice = createSlice({
     },
 
     setNotifications: (state, action) => {
-      state.notifications = action.payload;
+      state.profiles = action.payload;
       state.isLoading = false;
     },
 
     setNotification: (state, action) => {
-      state.notification = action.payload;
+      state.profile = action.payload;
       state.isLoading = false;
     },
     

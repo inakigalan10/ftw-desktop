@@ -3,33 +3,37 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   messages: [],
   message: {
-    message_id:0,
-    chat_id:0,
-    sender_id:0,
-    sender:"",
-    content:"",
-    created_at:""
+    match_id: 0, 
+    created_at: "",
+    chat_id: 0,
+    user1_data: {
+        user_id:0,
+        username:"",
+      },
+    user2_data: {
+      user_id: 0,
+      username: ""
+    },     
   },
   isLoading: false,
   error: "",
   info: "",
-  add: true,
 };
 
 export const messageSlice = createSlice({
   name: "message",
   initialState,
   reducers: {
-    startLoadingMessages: (state) => {
+    startLoadingMatchs: (state) => {
       state.isLoading = true;
     },
 
-    setMessages: (state, action) => {
+    setMatchs: (state, action) => {
       state.messages = action.payload;
       state.isLoading = false;
     },
 
-    setMessage: (state, action) => {
+    setMatch: (state, action) => {
       state.message = action.payload;
       state.isLoading = false;
     },
@@ -44,19 +48,15 @@ export const messageSlice = createSlice({
       state.info = "";
       state.isLoading = false;
     },
-    addMessage: (state, action) => {
-      state.messages.push(action.payload);
-    },
   },
 });
 
 // Action creators are generated for each case reducer function
 export const {
-  startLoadingMessages,
-  setMessages,
-  setMessage,
+  startLoadingMatchs,
+  setMatchs,
+  setMatch,
   setInfo,
   setError,
-  addMessage
 } = messageSlice.actions;
 export default messageSlice.reducer;

@@ -13,7 +13,7 @@ import { UserContext } from '../userContext';
 export const NotificationsList = () => {
   const dispatch = useDispatch();
   const {matchs = [], isLoading} = useSelector((state) => state.match);
-  const { authToken, setAuthToken, id, setId } = useContext(UserContext);
+  let { authToken, setAuthToken, id, setId } = useContext(UserContext);
 
   // només quan la vble d'estat refresca canvia el seu valor
   // refresca canviarà el valor quan fem alguna operació com delete

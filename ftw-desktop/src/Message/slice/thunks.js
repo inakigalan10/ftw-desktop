@@ -1,19 +1,19 @@
 import {
-  startLoadingChats,
-  setChats,
-  setChat,
+  startLoadingMatchs,
+  setMatchs,
+  setMatch,
   setInfo,
   setError,
-  } from "./chatSlice";
+  } from "./matchSlice";
   
   // Obtenim els matchs
-  export const getChats = (authToken) => {
+  export const getMatchs = (authToken) => {
     return async (dispatch, getState) => {
-      dispatch(startLoadingChats());
+      dispatch(startLoadingMatchs());
   
       try {
         const data = await fetch(
-          "http://127.0.0.1:8000/chat-list/" ,
+          "http://127.0.0.1:8000/match-list" ,
           {
             headers: {
               Accept: "application/json",
@@ -24,13 +24,13 @@ import {
           }
         );
         const resposta = await data.json();
-        console.log(resposta.data);
-        console.log("Token " + authToken);
-        dispatch(setChats(resposta.data));
+        console.log(resposta);
+        dispatch(setMatchs(resposta.data));
       } catch (e) {
         console.log(e);
         //dispatch(setError(e))
       }
     };
   };
+  
   

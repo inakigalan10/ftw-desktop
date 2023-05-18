@@ -10,9 +10,10 @@ import './matches.css'
 export const MatchsList = () => {
   const dispatch = useDispatch();
   const {matchs = [], isLoading} = useSelector((state) => state.match);
-  const { authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser } = useContext(UserContext);
+  let { authToken, setAuthToken } = useContext(UserContext);
 
-
+  // només quan la vble d'estat refresca canvia el seu valor
+  // refresca canviarà el valor quan fem alguna operació com delete
   useEffect(() => {
     dispatch(getMatchs(authToken))
   }, [])
