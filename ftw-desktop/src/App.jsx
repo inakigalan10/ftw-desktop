@@ -14,7 +14,6 @@ import { MatchsList } from './Matches/MatchsList';
 import { NotificationsList } from './Notification/NotificationsList';
 import MessagesList from './chat/Message/MessagesList';
 import {ChatsList} from './chat/ChatsList';
-import { ProfileUpdate } from './Profile/ProfileUpdate';
 
 function App() {
 
@@ -28,18 +27,6 @@ function App() {
     const token = localStorage.getItem("authToken");
     if (token){
       setAuthToken(token);
-    }
-    const userName =localStorage.getItem("UsernameUser");
-    if (userName) {
-      setUsernameUser(userName)
-    }
-    const idUser =localStorage.getItem("idUser");
-    if (idUser) {
-      setIdUser(idUser)
-    }
-    const profile =localStorage.getItem("idProfile");
-    if (profile) {
-      setIdProfile(profile)
     }
   },[]);
 
@@ -59,17 +46,6 @@ function App() {
                 <Matching />
               </>
             } />
-           
-
-            <Route
-                path="/profile/edit/:id"
-                element={
-                  <>
-                    <Menu />
-                    <ProfileUpdate />
-                  </>
-                }
-              />
             
             <Route path="/about" element={<About />} />
             
@@ -111,12 +87,6 @@ function App() {
               <>
                 <Menu/>
                 <ChatsList/>               
-              </>
-            } />
-            <Route path="/profile/:id" element={
-              <>
-                <Menu/>
-                <Profile/>               
               </>
             } />
             

@@ -1,6 +1,8 @@
 import React, {useContext} from 'react';
 import '../layaout/layaout.css';
+import { GiHamburgerMenu } from 'react-icons/gi';
 import { AiFillHome } from 'react-icons/ai';
+import { FaUserAlt } from 'react-icons/fa';
 import { BsFire } from 'react-icons/bs';
 import { AiFillNotification } from 'react-icons/ai';
 import { TbMessages } from 'react-icons/tb';
@@ -14,20 +16,17 @@ const Menu = () => {
   const isActive = (path) => {
     return location.pathname === path ? "active" : "";
   };
-  const {authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser} = useContext(UserContext);
+  let {authToken, setAuthToken,username, setUsername } = useContext(UserContext);
 
 
   return (
     <div className="menu-container">
       <div className="user-info">
         <div>
-          <img src="../public/img/img-user.jpg" alt="User avatar" />
+          <img src="./img/img-user.jpg" alt="User avatar" />
         </div>
-        <div>              
-          <Link to={`/profile/${idUser}`} style={{ color: "black" }}>
-                  <h1 className="user-name">{usernameUser}</h1>
-          </Link>
-          
+        <div>
+          <h1 className="user-name">{username}</h1>
           
         </div>
       </div>
@@ -42,7 +41,11 @@ const Menu = () => {
             </Link>
           </div>
         </div>
-        
+        <div className={`menu-item ${isActive("/profile")}`}>
+          <div className="icono-menu">
+            <FaUserAlt />
+          </div>
+        </div>
         <div className={`menu-item ${isActive("/matches")}`}>
           <div className="icono-menu">
             <BsFire />
