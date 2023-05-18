@@ -1,8 +1,6 @@
 import React, {useContext} from 'react';
 import '../layaout/layaout.css';
-import { GiHamburgerMenu } from 'react-icons/gi';
 import { AiFillHome } from 'react-icons/ai';
-import { FaUserAlt } from 'react-icons/fa';
 import { BsFire } from 'react-icons/bs';
 import { AiFillNotification } from 'react-icons/ai';
 import { TbMessages } from 'react-icons/tb';
@@ -16,17 +14,19 @@ const Menu = () => {
   const isActive = (path) => {
     return location.pathname === path ? "active" : "";
   };
-  let {authToken, setAuthToken, profile, setProfile, username, setUsername } = useContext(UserContext);
-
+  const {authToken,setAuthToken,idUser,setIdUser,username,setUsername} = useContext(UserContext);
 
   return (
     <div className="menu-container">
       <div className="user-info">
         <div>
-          <img src="./img/img-user.jpg" alt="User avatar" />
+          <img src="../public/img/img-user.jpg" alt="User avatar" />
         </div>
-        <div>
-          <h1 className="user-name">{username}</h1>
+        <div>              
+          <Link to={`/profile/${idUser}`} style={{ color: "black" }}>
+                  <h1 className="user-name">{username}</h1>
+          </Link>
+          
           
         </div>
       </div>
@@ -41,16 +41,7 @@ const Menu = () => {
             </Link>
           </div>
         </div>
-        <div className={`menu-item ${isActive("/profile")}`}>
-          <div className="icono-menu">
-            <FaUserAlt />
-          </div>
-          <div>
-            <Link to={"/profile"} style={{ color: "black" }}>
-              Profile
-            </Link>
-          </div>
-        </div>
+        
         <div className={`menu-item ${isActive("/matches")}`}>
           <div className="icono-menu">
             <BsFire />
@@ -61,22 +52,12 @@ const Menu = () => {
             </Link>
           </div>
         </div>
-        <div className={`menu-item ${isActive("/notification")}`}>
-          <div className="icono-menu">
-            <AiFillNotification />
-          </div>
-          <div>
-            <Link to={"/notification"} style={{ color: "black" }}>
-              Notification
-            </Link>
-          </div>
-        </div>
         <div className={`menu-item ${isActive("/message")}`}>
           <div className="icono-menu">
             <TbMessages />
           </div>
           <div>
-            <Link to={"/message"} style={{ color: "black" }}>
+            <Link to={"/messages"} style={{ color: "black" }}>
               Message
             </Link>
           </div>

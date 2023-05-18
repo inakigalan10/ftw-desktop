@@ -1,0 +1,59 @@
+
+.header_profile {
+    position: fixed;
+    top: 0;
+    left: 15%;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    width: 90%;
+    padding-top: 2%;
+    
+  }
+
+.name_profile{
+    margin-left: 3%;
+}
+.infos-perfil{
+    position: fixed;
+    top: 25%;
+    left: 20%; 
+   
+}
+
+.info-perfil{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    gap:15px;
+    
+}
+img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+   
+  }
+
+  .imagen-profile {
+    position: relative;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+
+  }
+
+  .imagen-profile-update:hover {
+    opacity: 0.3;
+    background-color: rgba(0,0,0,0.8);
+  }
+  .edit-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 24px;
+  }
+  

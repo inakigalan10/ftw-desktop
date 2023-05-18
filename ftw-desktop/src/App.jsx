@@ -9,20 +9,32 @@ import Menu from './layaout/Menu';
 import MessagesList from '../src/Message/MessagesList'
 import { UserContext } from './userContext'
 import { LoginRegister } from './auth/LoginRegister';
-import CreateProfile from './Profile/CreateProfile/CreateProfile';
+import {ProfileUpdate} from './Profile/ProfileUpdate';
 import { Profile } from './Profile/Profile';
 import { MatchsList } from './Matches/MatchsList';
-import { NotificationsList } from './Notification/NotificationsList';
+
+
 
 function App() {
 
   let [authToken,setAuthToken] = useState("");
-  let [id,setId]= useState("");
+  let [idUser,setIdUser]= useState("");
   let [username,setUsername]= useState("")
+  
   useEffect (() =>{
     const token = localStorage.getItem("authToken");
     if (token){
       setAuthToken(token);
+    }
+
+    const username = localStorage.getItem("username");
+    if (username){
+      setUsername(username);
+    }
+
+    const id = localStorage.getItem("idUsername");
+    if (id){
+      setIdUser(id);
     }
   },[]);
 
@@ -30,7 +42,7 @@ function App() {
 
   return (
     <>
-        <UserContext.Provider value= {{authToken,setAuthToken}}>
+        <UserContext.Provider value= {{authToken,setAuthToken,idUser,setIdUser,username,setUsername}}>
         
        
         {authToken ? (
@@ -54,6 +66,12 @@ function App() {
                 <Profile/>
               </>
             } />
+            <Route path="/profile/edit/:id" element={
+              <>
+                <Menu />
+                <ProfileUpdate/>
+              </>
+            } />
             
             
             <Route path="/matches" element={
@@ -63,12 +81,7 @@ function App() {
               </>
             } />
             
-            <Route path="/notification" element={
-              <>
-                <Menu />
-                <NotificationsList />
-              </>
-            } />
+            
             
             <Route path="/message" element={
               <>

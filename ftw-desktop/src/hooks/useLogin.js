@@ -23,9 +23,11 @@ export const useLogin = () => {
           setAuthToken(resposta.token);
           setId(resposta.user.id);
           setUsername(resposta.user.username)
-          localStorage.setItem('authToken',resposta.token)
-          console.log(authToken);
-          console.log(id);
+          localStorage.setItem('authToken', resposta.token);
+          localStorage.setItem('username',resposta.user.username)
+          localStorage.setItem('idUsername',resposta.user.id)
+          console.log(resposta);
+          
         } else {
           setAuthToken("");
           setError("Usuario o contraseña incorrecta");

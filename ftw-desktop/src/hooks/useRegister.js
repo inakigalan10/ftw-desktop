@@ -33,7 +33,9 @@ export const useRegister = () => {
           setUsername(resposta.user.username)
 
           +
-          localStorage.setItem('authToken', resposta.token)
+          localStorage.setItem('authToken', resposta.token);
+          localStorage.setItem('username',resposta.user.username)
+          localStorage.setItem('idUsername',resposta.user.id)
 
           console.log(authToken);
          

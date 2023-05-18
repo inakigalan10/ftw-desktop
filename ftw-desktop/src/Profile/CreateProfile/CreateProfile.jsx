@@ -35,17 +35,19 @@ const CreateProfile = () => {
   return (
     <>
       <div className='CreateProfile'>
-        <div className='cabecera'>
+        <div className='cabecera-CreateProfile'>
           <h1>CREA TU PERFIL PARA CONOCER A GENTE </h1>
         </div>
         <div className='formulario'>
           <form onSubmit={handleSubmit}>
             <label htmlFor='description'>Descripción:</label>
             <textarea
+              placeholder='Añade una descripcion sobre ti'
               id='descripcion'
               name='description'
               value={perfil.description}
               onChange={handleChange}
+              
             ></textarea>
 
             <label htmlFor='player_type'>Tipo de jugador:</label>
@@ -55,6 +57,7 @@ const CreateProfile = () => {
               value={perfil.player_type}
               onChange={handleChange}
             >
+              <option value=''>Escoge una opcion</option>
               <option value='casual'>Casual</option>
               <option value='hardcore'>Hardcore</option>
               <option value='pro'>Professional</option>
@@ -67,6 +70,7 @@ const CreateProfile = () => {
               value={perfil.play_schedule}
               onChange={handleChange}
             >
+              <option value=''>Escoge una opcion</option>
               <option value='morning'>Morning</option>
               <option value='afternoon'>Afternoon</option>
               <option value='evening'>Evening</option>
@@ -120,7 +124,7 @@ const CreateProfile = () => {
                 <label className='checkbox' htmlFor='supervivencia'>Supervivencia</label><br/>
             </div>
 
-            <label htmlFor='languages'>languages:</label>
+            <label htmlFor='languages'>Idiomas:</label>
             <div className='idiomas'>
                 <input
                     type='checkbox'
@@ -152,6 +156,7 @@ const CreateProfile = () => {
             value={perfil.country}
             onChange={handleChange}
             >
+      <option value=''>Escoge una opcion</option>
 			<option value='ES'>España</option>
 			<option value='US'>Estados Unidos</option>
 			<option value='MX'>México</option>
@@ -175,7 +180,7 @@ const CreateProfile = () => {
 		</select>
             </div>
 
-            <button type='submit'>Enviar</button>
+            <button className='button-createPerfil' type='submit'>Enviar</button>
           </form>
         </div>
       </div>
