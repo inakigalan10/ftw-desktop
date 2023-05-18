@@ -5,8 +5,6 @@ import {
   setInfo,
   setError,
   } from "./matchingSlice";
-  import axios from 'axios';
-
   
   // Obtenim un sol profile
   export const getProfileMatch = (authToken) => {
@@ -14,46 +12,42 @@ import {
       dispatch(startLoadingMatchings());
 
       try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/matchmaking/",
+        const data = await fetch(
+          "http://127.0.0.1:8000/matchmaking/" ,
           {
-            withCredentials: true,
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json",
               Authorization: "Token " + authToken,
-              
             },
+            method: "GET",
           }
         );
+        const resposta = await data.json();
   
-        dispatch(setMatching(response.data.data));
-       
-      } catch (error) {
-        console.log(error);
-        // dispatch(setError(error))
+        dispatch(setMatching(resposta.data));
+      } catch (e) {
+        console.log(e);
+        //dispatch(setError(e))
       }
     };
   };
 
-  export const Like = (authToken, sessionCookie) => {
+  export const Like = (authToken, id) => {
     return async (dispatch, getState) => {
       dispatch(startLoadingMatchings());
-  
+    
       const bodyData = {
         action: 'like'
       };
-  
+    
       const requestOptions = {
         method: 'POST',
-        credentials:'include',
         headers: {
           Authorization: 'Token ' + authToken,
           'Content-Type': 'application/json',
-          'X-CSRFToken': sessionCookie,
         },
         body: JSON.stringify(bodyData),
-        credentials: 'include', // Incluye la opción 'credentials' en la solicitud
       };
   
       fetch('http://127.0.0.1:8000/like-dislike/', requestOptions)
@@ -62,6 +56,7 @@ import {
           console.log(data);
           if (data.success === true) {
             dispatch(setInfo('Like al perfil'));
+            
           } else {
             dispatch(setError(data.message));
           }
@@ -72,27 +67,26 @@ import {
         });
     };
   };
+  
 
-  export const dislike = (authToken, sessionCookie) => {
+  export const dislike = (authToken, id) => {
     return async (dispatch, getState) => {
       dispatch(startLoadingMatchings());
-  
+      
       const bodyData = {
         action: 'dislike'
       };
-  
+    
       const requestOptions = {
         method: 'POST',
         headers: {
           Authorization: 'Token ' + authToken,
           'Content-Type': 'application/json',
-          'X-CSRFToken': sessionCookie,
         },
         body: JSON.stringify(bodyData),
-        credentials: 'include', // Incluye la opción 'credentials' en la solicitud
       };
   
-      fetch('http://127.0.0.1:8000/like-dislike/', requestOptions)
+      fetch('http://127.0.0.1:8000/like-dislike/' + id +"/", requestOptions)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);

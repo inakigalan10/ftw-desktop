@@ -4,8 +4,7 @@ import {
   setMatch,
   setInfo,
   setError,
-} from "./matchSlice";
-
+  } from "./matchSlice";
   
   // Obtenim els matchs
   export const getMatchs = (authToken) => {

@@ -47,7 +47,7 @@ function App() {
 
   return (
     <>
-        <UserContext.Provider value= {{authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser, sessionCookie, setSessionCookie, idProfile,setIdProfile}}>
+        <UserContext.Provider value= {{authToken,setAuthToken}}>
         
        
         {authToken ? (
