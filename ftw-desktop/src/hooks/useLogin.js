@@ -3,7 +3,7 @@ import { UserContext } from "../userContext";
 
 
 export const useLogin = () => {
-  const {authToken, setAuthToken, id, setId, username, setUsername} = useContext(UserContext);
+  const {aauthToken,setAuthToken,idUser,setIdUser,username,setUsername} = useContext(UserContext);
   const [error, setError] = useState("");
 
   const doLogin = (formState) => {
@@ -21,7 +21,7 @@ export const useLogin = () => {
       .then((resposta) => {
         if ('token' in resposta ) {
           setAuthToken(resposta.token);
-          setId(resposta.user.id);
+          setIdUser(resposta.user.id);
           setUsername(resposta.user.username)
           localStorage.setItem('authToken', resposta.token);
           localStorage.setItem('username',resposta.user.username)

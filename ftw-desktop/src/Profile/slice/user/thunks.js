@@ -1,19 +1,19 @@
 import {
-  startLoadingMatchs,
-  setMatchs,
-  setMatch,
+  startLoadingUsers,
+  setUsers,
+  setUser,
   setInfo,
   setError,
-  } from "./matchSlice";
+  } from "./userSlice";
   
-  // Obtenim els matchs
-  export const getMatchs = (authToken) => {
+  // Obtenim un sol user
+  export const getUser = (authToken, id) => {
     return async (dispatch, getState) => {
-      dispatch(startLoadingMatchs());
+      dispatch(startLoadingUsers());
   
       try {
         const data = await fetch(
-          "http://127.0.0.1:8000/match-list" ,
+          "http://127.0.0.1:8000/profile/" + id,
           {
             headers: {
               Accept: "application/json",
@@ -25,12 +25,12 @@ import {
         );
         const resposta = await data.json();
         console.log(resposta);
-        dispatch(setMatchs(resposta.data));
+        dispatch(setUser(resposta.data));
       } catch (e) {
         console.log(e);
         //dispatch(setError(e))
       }
     };
   };
-  
-  
+    
+ 

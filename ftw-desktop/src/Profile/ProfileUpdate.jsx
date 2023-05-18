@@ -7,6 +7,7 @@ import { UserContext } from "../userContext";
 
 import '../Profile/CreateProfile/CreateProfile.css';
 import { getProfile } from './slice/thunks';
+import { getUser } from './slice/user/thunks';
 
 export const ProfileUpdate = () => {
   const { id } = useParams();
@@ -18,13 +19,14 @@ export const ProfileUpdate = () => {
  
 
   const { profile, isLoading, error, info } = useSelector(state => state.profile);
+  const { user } = useSelector(state => state.user);
+
 
   useEffect(() => {
     dispatch(getProfile(authToken, id))
      
       .then((response) => {
-        const data = response.data;
-       
+        
         // Actualizar los estados con los datos obtenidos
         setPerfil({
           description: profile.description,
@@ -41,11 +43,27 @@ export const ProfileUpdate = () => {
       });
   }, []);
 
-  const [user, setUser] = useState({
-    username: "",
-    email: "",
-  
-  });
+  useEffect(() => {
+    dispatch(getUser(authToken, id))
+     
+      .then((response) => {
+        console.log(response)
+        const data2 = response.data;
+       
+        // Actualizar los estados con los datos obtenidos
+        setUser({
+          username: user.username,
+          email: user.email,
+
+          
+        });
+      })
+      .catch((error) => {
+        // Manejar el error si ocurre
+        console.error(error);
+      });
+  }, []);
+
 
   const handleProfileChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -84,7 +102,7 @@ export const ProfileUpdate = () => {
         <form  onSubmit={handleUserSubmit}>
             <label htmlFor='username'>Nombre de usuario:</label>
             <input
-              placeholder=''
+             
               id='username'
               name='username'
               value={user.username}

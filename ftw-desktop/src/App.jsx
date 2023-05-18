@@ -6,12 +6,12 @@ import './App.css';
 import { Contacte } from './Contacte ';
 import Matching from './matching/Matching';
 import Menu from './layaout/Menu';
-import MessagesList from '../src/Message/MessagesList'
 import { UserContext } from './userContext'
 import { LoginRegister } from './auth/LoginRegister';
 import {ProfileUpdate} from './Profile/ProfileUpdate';
 import { Profile } from './Profile/Profile';
 import { MatchsList } from './Matches/MatchsList';
+import Chat from './chat/Chat';
 
 
 
@@ -83,10 +83,10 @@ function App() {
             
             
             
-            <Route path="/message" element={
+            <Route path="/chat/:id" element={
               <>
                 <Menu />
-                <MessagesList />
+                <Chat />
               </>
             } />
             </Routes>
