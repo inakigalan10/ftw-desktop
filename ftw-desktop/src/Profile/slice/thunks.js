@@ -70,7 +70,7 @@ import {
     };
   };
 
-  export const editUser = (authToken, perfil) => {
+  export const editProfile = (authToken, perfil) => {
     return async (dispatch, getState) => {
       dispatch(startLoadingProfiles());
       let { description, player_type, play_schedule, genres, languages, country } = perfil;

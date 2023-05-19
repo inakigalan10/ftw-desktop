@@ -2,11 +2,11 @@ import React, { useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { UserContext } from '../userContext';
 import { Navigate, useParams } from "react-router-dom";
-import {editUser, getProfile } from './slice/thunks';
+import {editProfile, getProfile } from './slice/thunks';
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { getUser } from './slice/user/thunks';
+import { getUser, editUser } from './slice/user/thunks';
 
 
 
@@ -71,12 +71,18 @@ const ProfileUpdate = () => {
    
   }, [user]);
 
+  localStorage.setItem('username', user.username);
 
 
-  const editar = (data) => {
-    dispatch(editUser(authToken, data));
+
+
+  const editarProfile = (data) => {
+    dispatch(editProfile(authToken, data));
   }
 
+  const editarUser = (data) => {
+    dispatch(editUser(authToken, data));
+  }
   const dispatch = useDispatch();
   return (
     <div>
@@ -84,7 +90,7 @@ const ProfileUpdate = () => {
           <div>
           <label >Nombre de Usuario</label>
             <input
-            {...register("Username", {
+            {...register("username", {
               required: "El nombre de usuario és obligatòria",
               maxLength: {
                 value: 50,
@@ -108,6 +114,13 @@ const ProfileUpdate = () => {
               
             ></input>
           </div>
+         
+           <button
+              onClick={handleSubmit(editarUser)}
+              type="submit"
+            >
+              Editar Entrada
+            </button>
         <div>
           
         </div>
@@ -164,7 +177,7 @@ const ProfileUpdate = () => {
               </select>
           </div>
           <div>
-          <label htmlFor='genres'>Géneros de Videojuegos:</label>
+          <label htmlFor='genres'>Géneros de Videojuegos (seleciona como mínimo uno y como máximo tres):</label>
             <div className='generos'>
             <input
                 type='checkbox'
@@ -324,7 +337,7 @@ const ProfileUpdate = () => {
             {errors.genres && <p>{errors.genres.message}</p>}
           </div>
           <div>
-          <label htmlFor='languages'>Idiomas:</label>
+          <label htmlFor='languages'>Idiomas (seleciona como mínimo uno y como máximo tres):</label>
             <div className='idiomas'>
                 <input
                     type='checkbox'
@@ -488,7 +501,7 @@ const ProfileUpdate = () => {
               <></>
             )}
            <button
-              onClick={handleSubmit(editar)}
+              onClick={handleSubmit(editarProfile)}
               type="submit"
             >
               Editar Entrada
