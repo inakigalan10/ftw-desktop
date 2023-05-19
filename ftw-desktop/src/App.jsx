@@ -8,10 +8,10 @@ import Matching from './matching/Matching';
 import Menu from './layaout/Menu';
 import { UserContext } from './userContext'
 import { LoginRegister } from './auth/LoginRegister';
-import {ProfileUpdate} from './Profile/ProfileUpdate';
 import { Profile } from './Profile/Profile';
 import { MatchsList } from './Matches/MatchsList';
 import Chat from './chat/Chat';
+import ProfileUpdate from './Profile/ProfileUpdate';
 
 
 

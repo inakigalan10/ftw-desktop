@@ -10,6 +10,7 @@ import {
   export const getProfileMatch = (authToken) => {
     return async (dispatch, getState) => {
       dispatch(startLoadingMatchings());
+     
 
       try {
         const data = await fetch(

@@ -69,4 +69,42 @@ import {
         });
     };
   };
+
+  export const editUser = (perfil, authToken) => {
+    return async (dispatch, getState) => {
+      dispatch(startLoadingProfiles());
+      let { description, player_type, play_schedule, genres, languages, country } = perfil;
+      console.log(authToken)
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          Authorization: 'Token ' + authToken,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          description,
+          player_type,
+          play_schedule,
+          genres,
+          languages,
+          country,
+        }),
+      };
+  
+      fetch('http://127.0.0.1:8000/update-profile/', requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          if (data.success === true) {
+            dispatch(setInfo('Perfil correctamente actualizado'));
+          } else {
+            dispatch(setError(data.message));
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          dispatch(setError('Error en la solicitud'));
+        });
+    };
+  };
   
