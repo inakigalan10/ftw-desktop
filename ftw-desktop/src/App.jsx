@@ -14,6 +14,8 @@ import CreateProfile  from './Profile/CreateProfile/CreateProfile';
 
 import Chat from './chat/Chat';
 import ProfileUpdate from './Profile/ProfileUpdate';
+import useSocket from './hooks/useSocket';
+import useSocketNotis from './hooks/useSocketNotis';
 
 
 
@@ -23,24 +25,31 @@ function App() {
   let [idUser,setIdUser]= useState("");
   let [username,setUsername]= useState("")
   
-  useEffect (() =>{
-    const token = localStorage.getItem("authToken");
-    if (token){
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
       setAuthToken(token);
     }
 
-    const username = localStorage.getItem("username");
-    if (username){
+    const username = localStorage.getItem('username');
+    if (username) {
       setUsername(username);
     }
 
-    const id = localStorage.getItem("idUsername");
-    if (id){
+    const id = localStorage.getItem('idUsername');
+    if (id) {
       setIdUser(id);
     }
-  },[]);
+  }, []);
 
-
+  // Utilizar el hook useSocket para establecer la conexión WebSocket después de iniciar sesión
+  useEffect(() => {
+    if (authToken && idUser) {
+      const socket = useSocketNotis(authToken, idUser);
+      // Resto de la lógica de manejo del socket...
+    }
+  }, [authToken, idUser]);
+  
 
   return (
     <>
