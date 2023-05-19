@@ -6,6 +6,7 @@ import {editUser, getProfile } from './slice/thunks';
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { getUser } from './slice/user/thunks';
 
 
 
@@ -16,6 +17,8 @@ const ProfileUpdate = () => {
 
   const {authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser} = useContext(UserContext);
   const { profile, isLoading, error, info } = useSelector(state => state.profile);
+  const { user } = useSelector(state => state.user);
+
   
 
   
@@ -43,8 +46,10 @@ const ProfileUpdate = () => {
       ? 'Selecciona un máximo de 3 generos'
       : undefined;
   };
+
   useEffect(() => {
     dispatch(getProfile(authToken, id));
+    dispatch(getUser(authToken, id));
   }, []);
 
   useEffect(() => {
@@ -58,9 +63,17 @@ const ProfileUpdate = () => {
    
   }, [profile]);
 
+  useEffect(() => {
+    setValue("username", user.username);
+    setValue("email", user.email);
+   
+
+   
+  }, [user]);
+
+
 
   const editar = (data) => {
-
     dispatch(editUser(authToken, data));
   }
 
@@ -68,15 +81,42 @@ const ProfileUpdate = () => {
   return (
     <div>
       <div>
+          <div>
+          <label >Nombre de Usuario</label>
+            <input
+            {...register("Username", {
+              required: "El nombre de usuario és obligatòria",
+              maxLength: {
+                value: 50,
+                message: "La longitud màxima és de 50 caràcters",
+              },
+            })}
+              
+            ></input>
+          </div>
+          <div>
+          <label >Email</label>
+            <input
+            type='email'
+            {...register("email", {
+              required: "El email obligatòria",
+              maxLength: {
+                value: 50,
+                message: "La longitud màxima és de 50 caràcters",
+              },
+            })}
+              
+            ></input>
+          </div>
         <div>
           
         </div>
       </div>
         <div>
-          <label >description</label>
+          <label >Descripcion</label>
             <textarea
             {...register("description", {
-              required: "La body és obligatòria",
+              required: "La descripcion és obligatòria",
               maxLength: {
                 value: 255,
                 message: "La longitud màxima és de 255 caràcters",
@@ -87,7 +127,7 @@ const ProfileUpdate = () => {
           </div>
           <div>
             <label
-              htmlFor="visibility"
+              htmlFor="player_type"
             >
               
               Tipo de jugador:
@@ -97,7 +137,7 @@ const ProfileUpdate = () => {
                 required: "Tipo de jugador és obligatòria",
               })}
               
-              id="visibility"
+              id="player_type"
             >
               <option defaultValue value="">
                 ----

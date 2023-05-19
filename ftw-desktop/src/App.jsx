@@ -10,6 +10,8 @@ import { UserContext } from './userContext'
 import { LoginRegister } from './auth/LoginRegister';
 import { Profile } from './Profile/Profile';
 import { MatchsList } from './Matches/MatchsList';
+import CreateProfile  from './Profile/CreateProfile/CreateProfile';
+
 import Chat from './chat/Chat';
 import ProfileUpdate from './Profile/ProfileUpdate';
 
@@ -89,7 +91,17 @@ function App() {
                 <Chat />
               </>
             } />
+
+            <Route path="/createProfile" element={
+              <>
+               
+                <CreateProfile />
+              </>
+            } />
             </Routes>
+
+
+
            
           </>
         ) : (

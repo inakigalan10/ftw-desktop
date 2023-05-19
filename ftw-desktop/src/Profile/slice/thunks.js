@@ -70,13 +70,13 @@ import {
     };
   };
 
-  export const editUser = (perfil, authToken) => {
+  export const editUser = (authToken, perfil) => {
     return async (dispatch, getState) => {
       dispatch(startLoadingProfiles());
       let { description, player_type, play_schedule, genres, languages, country } = perfil;
-      console.log(authToken)
+      console.log("hola"+authToken)
       const requestOptions = {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           Authorization: 'Token ' + authToken,
           'Content-Type': 'application/json',
