@@ -1,0 +1,113 @@
+/* Estilos generales del chat */
+
+.chat {
+    position: fixed;
+    top:1%;
+    left:16%;
+    display: flex;
+    flex-direction: column;
+    height: 91vh;
+    width: 168vh;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .cabecera-chat {
+    background-color: #075e54;
+    padding: 10px;
+    color: #fff;
+    border-radius: 10px;
+  }
+  
+  .cabecera-chat h1 {
+    margin: 0;
+  }
+  
+  .listado-message {
+    flex-grow: 1;
+    overflow-y: auto;
+    
+  
+  }
+  
+  /* Estilos de los mensajes */
+  .listado-message .you {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 10px;
+  }
+  
+  .listado-message .other {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  
+  .listado-message .you .sender,
+  .listado-message .other .sender {
+    font-weight: bold;
+  }
+  
+  .listado-message .you .contenido {
+    background-color: #dcf8c6;
+    padding: 8px;
+    border-radius: 8px;
+    max-width: 80%; /* Ancho máximo del contenido del mensaje */
+    word-wrap: break-word; /* Romper palabras largas para ajustarse al ancho */
+  }
+  
+  .listado-message .other .contenido {
+    background-color: #ece5dd;
+    padding: 8px;
+    border-radius: 8px;
+    max-width: 80%; /* Ancho máximo del contenido del mensaje */
+    word-wrap: break-word; /* Romper palabras largas para ajustarse al ancho */
+  }
+  
+  .listado-message .you .fecha,
+  .listado-message .other .fecha {
+    font-size: 12px;
+    color: #888;
+  }
+  
+  /* Estilos del formulario de envío de mensajes */
+  .enviar-mensaje {
+    margin-top: 20px;
+    position: fixed;
+    bottom: -1%;
+    left: 17%;
+    width: 82%;
+  }
+  
+  .enviar-mensaje form {
+    display: flex;
+    align-items: center;
+  }
+  
+  .enviar-mensaje input[type="text"] {
+    flex-grow: 1;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 5px;
+  }
+  
+  .enviar-mensaje button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #075e54;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .enviar-mensaje button:hover {
+    background-color: #128c7e;
+  }
+  
+  .enviar-icono {
+    color: #fff;
+  }
+  

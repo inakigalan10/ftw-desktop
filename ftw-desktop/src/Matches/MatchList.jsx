@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaRegPaperPlane } from 'react-icons/fa';
 
 export const MatchList = ({v}) => {
-  const { authToken, setAuthToken, id, setId } = useContext(UserContext);
+  const { authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser } = useContext(UserContext);
   const [showMenu, setShowMenu] = useState(false); // Estado para mostrar/ocultar el menú
   let [refresca, setRefresca] = useState(false);
 
@@ -34,11 +34,12 @@ export const MatchList = ({v}) => {
     }
   };
 
+
   return (
     <>
       <div className='card-match' key={v.id}>
-        {v.user1_data.user_id === id ? (
-         
+        {v.user1_data.user_id === idUser ? (
+           
             <div className='match'>
               <Link to={"/profile/" + v.user2_data.user_id}>
               <div className='match'>
@@ -51,9 +52,11 @@ export const MatchList = ({v}) => {
               </div>
               </Link>
               <div className='action-match' >
+              <Link to={"/chat/" + v.chat_id}>
                 <div className='message-match'>
                   <FaRegPaperPlane/>
                 </div>
+              </Link>
                 <div
                   className='more-action-match'
                   onClick={() => setShowMenu(!showMenu)} // Cambia el estado del menú al hacer clic

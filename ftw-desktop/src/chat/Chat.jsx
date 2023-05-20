@@ -3,17 +3,21 @@ import { w3cwebsocket as WebSocket } from 'websocket';
 import { UserContext } from '../userContext'
 import { useParams } from 'react-router-dom';
 import useSocket from '../hooks/useSocket';
+import './chat.css';
+import { GrSend } from 'react-icons/gr';
+
 
 const Chat = () => 
 {
 
-    const { authToken, setAuthToken, id, setId } = useContext(UserContext);
+    const { authToken,setAuthToken,idUser,setIdUser,username,setUsername} = useContext(UserContext);
     const [messages, setMessages] = useState([]);
     const socketRef = useRef(null);
     const  chat_id  = useParams();
+    const [otherPersonName, setOtherPersonName] = useState(''); // Variable de estado para almacenar el nombre de la otra persona
+    const listadoRef = useRef(null);
     const socket = useSocket(chat_id.id); // Obtiene la instancia del socket WebSocket
     
-  
 
     
     useEffect(() => {
@@ -48,6 +52,12 @@ const Chat = () =>
       }
     }, [socket]);
 
+    const handleSendMessage = (content) => {
+      // Aquí debes implementar la lógica para enviar el mensaje al servidor
+      // Puedes utilizar la función `sendMessage` del hook `useSocket`
+      socket.sendMessage(content);
+    };
+
      // Efecto adicional para reconectar en caso de desconexión
   useEffect(() => {
     if (socket) {
@@ -67,6 +77,8 @@ const Chat = () =>
         socket.connect();
       };
 
+     
+
       socket.onClose(handleSocketClose);
       socket.onError(handleSocketError);
 
@@ -76,40 +88,79 @@ const Chat = () =>
       };
     }
   }, [socket]);
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      // Obtener el nombre de la otra persona basado en el primer mensaje
+      const firstMessage = messages[0];
+      const otherPerson = firstMessage.sender === username ? firstMessage.receiver : firstMessage.sender;
+      setOtherPersonName(otherPerson);
+    }
+  }, [messages, username]);
     
+  useEffect(() => {
+    
+    if (listadoRef.current) {
+      listadoRef.current.scrollTop = listadoRef.current.scrollHeight;
+    }
+  }, [messages]);
 
 
-    return (
-        <div>
-        <h1>Chat Component</h1>
-        
-        {/* Renderizar los mensajes */}
-        {messages.map((message) => (
+  return (
+    <div className='chat'>
+      <div className='cabecera-chat'>
+        <h1>{otherPersonName}</h1> {/* Mostrar el nombre de la otra persona */}
+      </div>
+      
+        <div className='listado-message' ref={listadoRef} >
+          {/* Renderizar los mensajes */}
+          {messages.map((message) => (
+            console.log(message.sender, username),
+            message.sender === username ? (
             
-            <div key={message.id}>
-            <span>{message.sender} </span>
-            <span>{message.content}</span>
-            <span>{message.created_at}</span>
-            </div>
-        ))}
-
+              <div key={message.id} className='you'>
+                <div className='sender'>
+                  <span>{message.sender}</span>
+                </div>
+                <div className='contenido'>
+                  <span>{message.content}</span>
+                </div>
+                <div className='fecha'>
+                  <span>{message.created_at}</span>
+                </div> 
+              </div>
+            ) : (
+              <div key={message.id} className='other'>
+                <div className='sender'>
+                  <span>{message.sender}</span>
+                </div>
+                <div className='contenido'>
+                  <span>{message.content}</span>
+                </div>
+                <div className='fecha'>
+                  <span>{message.created_at}</span>
+                </div> 
+              </div>
+            )   
+          ))}
+        </div>
+  
         {/* Formulario para enviar mensajes */}
-        <form
-            onSubmit={(e) => {
+        <div className='enviar-mensaje'>
+          <form onSubmit={(e) => {
             e.preventDefault();
             const content = e.target.message.value;
-            handleSendMessage(content)
-
+            handleSendMessage(content);
+  
             e.target.message.value = '';
-
-            }}
-
-        >
-            <input type="text" name="message" placeholder="Enter your message"   />
-            <button type="submit">Send</button>
-        </form>
+          }}>
+            <input type="text" name="message" placeholder="Enter your message" />
+            <button type="submit" className='enviar-icono'><GrSend/></button>
+          </form>
         </div>
-    );
+      </div>
+  );
+  
 };
 
 export default Chat;
