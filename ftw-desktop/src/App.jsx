@@ -42,14 +42,7 @@ function App() {
     }
   }, []);
 
-  // Utilizar el hook useSocket para establecer la conexión WebSocket después de iniciar sesión
-  useEffect(() => {
-    if (authToken && idUser) {
-      const socket = useSocketNotis(authToken, idUser);
-      // Resto de la lógica de manejo del socket...
-    }
-  }, [authToken, idUser]);
-  
+ 
 
   return (
     <>

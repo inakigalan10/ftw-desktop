@@ -86,8 +86,11 @@ const ProfileUpdate = () => {
   const dispatch = useDispatch();
   return (
     <div>
-      <div>
-          <div>
+      <div className='cabecera-Update-Profile'>
+        <h1>MODIFICA TU PERFIL</h1>
+      </div>
+      <div className='formulario'>
+        <div>
           <label >Nombre de Usuario</label>
             <input
             {...register("username", {
@@ -99,8 +102,8 @@ const ProfileUpdate = () => {
             })}
               
             ></input>
-          </div>
-          <div>
+        </div>
+        <div>
           <label >Email</label>
             <input
             type='email'
@@ -113,30 +116,29 @@ const ProfileUpdate = () => {
             })}
               
             ></input>
-          </div>
+        </div>
          
-           <button
+        <button
+          className='button-createPerfil'
               onClick={handleSubmit(editarUser)}
               type="submit"
             >
-              Editar Entrada
-            </button>
-        <div>
-          
-        </div>
+              Guardar
+        </button>
       </div>
-        <div>
-          <label >Descripcion</label>
-            <textarea
-            {...register("description", {
-              required: "La descripcion és obligatòria",
-              maxLength: {
-                value: 255,
-                message: "La longitud màxima és de 255 caràcters",
-              },
-            })}
-              
-            ></textarea>
+      <div className='formulario'>
+          <div >
+            <label >Descripcion</label>
+              <textarea
+              {...register("description", {
+                required: "La descripcion és obligatòria",
+                maxLength: {
+                  value: 255,
+                  message: "La longitud màxima és de 255 caràcters",
+                },
+              })}
+                
+              ></textarea>
           </div>
           <div>
             <label
@@ -501,11 +503,13 @@ const ProfileUpdate = () => {
               <></>
             )}
            <button
+              className='button-createPerfil'
               onClick={handleSubmit(editarProfile)}
               type="submit"
             >
-              Editar Entrada
-            </button>
+              Guardar
+          </button>
+        </div>
     </div>
   )
 }

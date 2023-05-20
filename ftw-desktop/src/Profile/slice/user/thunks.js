@@ -58,6 +58,8 @@ import {
           console.log(data);
           if (data.success === true) {
             dispatch(setInfo('Perfil correctamente actualizado'));
+            localStorage.setItem('username', username);
+
           } else {
             dispatch(setError(data.message));
           }
