@@ -7,22 +7,32 @@ import { AiFillDislike } from 'react-icons/ai';
 import { useDispatch, useSelector } from "react-redux";
 import { UserContext } from "../userContext";
 import { Like, dislike, getProfileMatch } from './slice/thunks';
+import { getUser } from '../Profile/slice/user/thunks';
+import { useNavigate } from 'react-router-dom';
+
+
 
 
 const Matching = () => {
   const dispatch = useDispatch();
   
-  let {authToken, setAuthToken } = useContext(UserContext);
+  let {authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser} = useContext(UserContext);
   console.log(authToken);
-  useEffect(() => {
-    dispatch(getProfileMatch(authToken))
-  }, []);
-
+  
   const {matching, isLoading, error,info} = useSelector(state => state.matching)
   console.log(matching)
-  
+  const { user } = useSelector(state => state.user);
+  console.log(user.profile)
+  const navigate = useNavigate();
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [Loading, setLoading] = useState(true);
   const [showPopUpLike, setShowPopUpLike] = useState(false);
   const [ShowPopUpDislike, setShowPopUpDislike] = useState(false);
+  
+  useEffect(() => {
+    dispatch(getUser(authToken, idUser));
+    dispatch(getProfileMatch(authToken))
+  }, []);
 
   const handleLikeClick = () => {
     setShowPopUpLike(true);
@@ -35,8 +45,31 @@ const Matching = () => {
     dispatch(dislike(authToken, matching.id));
     dispatch(getProfileMatch(authToken));
   };
-  
 
+  useEffect(() => {
+    if (!user.profile) {
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 500); 
+
+      return () => {
+        clearTimeout(timer); // Limpiar el temporizador si el componente se desmonta antes de que se complete
+      };
+    } else {
+      setLoading(false);
+    }
+  }, [user.profile]);
+
+  useEffect(() => {
+    if (Loading) {
+      return; // Mostrar el indicador de carga mientras se carga el perfil
+    }
+    
+    if (!user.profile) {
+      navigate('/createProfile');
+    }
+  }, [Loading, navigate, user.profile]);
+  
   return (
     <div className='main'>
       <div className='like_user' onClick={handleLikeClick}>
@@ -47,27 +80,27 @@ const Matching = () => {
           <img src='./img/avatar.jpeg' alt='' />
         </div>
         <div className='name-user-card'>
-          <h1>{matching.username}</h1>
+          <h1>{matching && matching.username}</h1>
         </div>
         <div className='info-user-card'>
           <div className='horario-user-card'>
-            <p>{matching.play_schedule}</p>
+            <p>{matching && matching.play_schedule}</p>
           </div>
           <div className='horario-user-card'>
-            <p>{matching.country}</p>
+            <p>{matching && matching.country}</p>
           </div>
           <div className='horario-user-card'>
-            <p>{matching.genres}</p>
+            <p>{matching && matching.genres}</p>
           </div>
           <div className='horario-user-card'>
-            <p>{matching.player_type}</p>
+            <p>{matching && matching.player_type}</p>
           </div>
           <div className='horario-user-card'>
-            <p>{matching.languages}</p>
+            <p>{matching && matching.languages}</p>
           </div>
           <div className='desc-user-card'>
             <p>
-            {matching.description}
+            {matching && matching.description}
             </p>
           </div>
         </div>
