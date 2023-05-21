@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect } from 'react';
 import '../layaout/layaout.css';
 import { AiFillHome } from 'react-icons/ai';
 import { BsFire } from 'react-icons/bs';
@@ -6,6 +6,7 @@ import { AiFillNotification } from 'react-icons/ai';
 import { TbMessages } from 'react-icons/tb';
 import { Link, useLocation } from 'react-router-dom';
 import { UserContext } from "../userContext";
+import { ImExit } from 'react-icons/im';
 
 
 const Menu = () => {
@@ -15,6 +16,22 @@ const Menu = () => {
     return location.pathname === path ? "active" : "";
   };
   const {authToken,setAuthToken,idUser,setIdUser,username,setUsername} = useContext(UserContext);
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken'); // Eliminar el token del local storage
+    setAuthToken(null); // Actualizar el estado del token en el contexto (si es necesario)
+    localStorage.removeItem('username'); // Eliminar el token del local storage
+    setUsername(null); // Actualizar el estado del token en el contexto (si es necesario)
+    localStorage.removeItem('idUsername'); // Eliminar el token del local storage
+    setIdUser(null); // Actualizar el estado del token en el contexto (si es necesario)
+  };
+  
+  useEffect(() => {
+    if (authToken === null) {
+      handleLogout();
+    }
+  }, [authToken]);
+
 
   return (
     <div className="menu-container">
@@ -60,6 +77,11 @@ const Menu = () => {
             <Link to={"/messages"} style={{ color: "black" }}>
               Message
             </Link>
+          </div>
+        </div>
+        <div className="menu-item" onClick={handleLogout}>
+          <div>
+            <ImExit/>
           </div>
         </div>
       </div>

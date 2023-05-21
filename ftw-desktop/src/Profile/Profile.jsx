@@ -6,23 +6,35 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from './slice/thunks';
 import { UserContext } from "../userContext";
 import { FaPencilAlt } from 'react-icons/fa';
-
+import { MdAdminPanelSettings } from 'react-icons/md';
 
 import './Profile.css';
+import { getUser } from './slice/user/thunks';
+import UsersList from '../admin/UserList/UsersList';
+import AdminPage from '../admin/AdminMenu';
+import AdminMenu from '../admin/AdminMenu';
+import AdminDashboard from '../admin/AdminDashboard';
 
 export const Profile = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
- 
+
   const { pathname } = useLocation();
   const {authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser} = useContext(UserContext);
+  const [showUsersList, setShowUsersList] = useState(false);
 
   useEffect(() => {
     dispatch(getProfile(authToken, id));
+    dispatch(getUser(authToken, id));
   }, []);
 
   const { profile, isLoading, error, info } = useSelector(state => state.profile);
   console.log(profile);
+  const { user } = useSelector(state => state.user);
+
+  const handleAdminClick = () => {
+    setShowUsersList(true);
+  };
 
   const playerTypeMap = {
     casual: 'Casual',
@@ -116,6 +128,7 @@ export const Profile = () => {
         return value;
     }
   };
+  
   const getCountryLabel = (value) => {
     switch (value) {
       case 'ES':
@@ -162,62 +175,76 @@ export const Profile = () => {
         return value;
     }
   };
-  
- 
-  
 
   return (
     <>
-      {profile && profile.user && profile.user.username ? (
-        <div className="page-container-profile">
-          <div className="header_profile">
-          <div className={`imagen-profile`}>
-            <img src="../public/img/img-user.jpg" alt="User avatar" />       
-          </div>
-            <div className="name_profile">
-              <h1 className="user_name_profile-profile">{profile.user.username}</h1>
-            </div>
-            {id == idUser ?(
-              <>
-              <Link
-                      to={"/profile/edit/" + id}
-                    >
-              <FaPencilAlt className="edit-icon" />
-              </Link>
-              </>
-            ):(
-              <></>
-            )}
-          </div>
-          <div className='infos-perfil'>
-            <div className="info-perfil">
-              <h2>Description:</h2>
-              <h3 className="description-profile">{profile.description}</h3>
-            </div>
-            <div className="info-perfil">
-              <h2>Tipo de jugador:</h2>
-              <h3 className="player_type-profile">{playerTypeMap[profile.player_type]}</h3>
-            </div>
-            <div className="info-perfil">
-              <h2>Horari:</h2>
-              <h3 className="play_schedule-profile">{getPlayScheduleLabel(profile.play_schedule)}</h3>
-            </div>
-            <div className="info-perfil">
-              <h2>Tipos de juegos:</h2>
-              <h3 className="genres-profile">{getGenresLabel(profile.genres[0])} {getGenresLabel(profile.genres[1])} {getGenresLabel(profile.genres[2])}</h3>
-            </div>
-            <div className="info-perfil">
-              <h2>Idiomas:</h2>
-              <h3 className="languages-profile"> {getLanguagesLabel(profile.languages[0])} {getLanguagesLabel(profile.languages[1])} {getLanguagesLabel(profile.languages[2])}</h3>
-            </div>
-            <div className="info-perfil">
-              <h2>Pais:</h2>
-              <h3 className="country-profile">{getCountryLabel(profile.country)}</h3>
-            </div>
-          </div>
-        </div>
+      {showUsersList ? (
+        <AdminDashboard   />
       ) : (
-        <h1>No se encontró el perfil</h1>
+        <>
+          {profile && profile.user && profile.user.username ? (
+            <div className="page-container-profile">
+              <div className="header_profile">
+                <div className={`imagen-profile`}>
+                  <img src="../public/img/img-user.jpg" alt="User avatar" />
+                </div>
+                <div className="name_profile">
+                  <h1 className="user_name_profile-profile">{profile.user.username}</h1>
+                </div>
+                {id == idUser ? (
+                  <>
+                    <Link to={"/profile/edit/" + id}>
+                      <FaPencilAlt className="edit-icon" />
+                    </Link>
+                  </>
+                ) : (
+                  <></>
+                )}
+                {id == idUser && user.is_staff ? (
+                  <>
+                    <div className='boton-admin' onClick={handleAdminClick}>
+                      <MdAdminPanelSettings/>
+                    </div>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </div>
+              <div className='infos-perfil'>
+                <div className="info-perfil">
+                  <h2>Description:</h2>
+                  <h3 className="description-profile">{profile.description}</h3>
+                </div>
+                <div className="info-perfil">
+                  <h2>Tipo de jugador:</h2>
+                  <h3 className="player_type-profile">{playerTypeMap[profile.player_type]}</h3>
+                </div>
+                <div className="info-perfil">
+                  <h2>Horari:</h2>
+                  <h3 className="play_schedule-profile">{getPlayScheduleLabel(profile.play_schedule)}</h3>
+                </div>
+                <div className="info-perfil">
+                  <h2>Tipos de juegos:</h2>
+                  <h3 className="genres-profile">
+                    {getGenresLabel(profile.genres[0])} {getGenresLabel(profile.genres[1])} {getGenresLabel(profile.genres[2])}
+                  </h3>
+                </div>
+                <div className="info-perfil">
+                  <h2>Idiomas:</h2>
+                  <h3 className="languages-profile">
+                    {getLanguagesLabel(profile.languages[0])} {getLanguagesLabel(profile.languages[1])} {getLanguagesLabel(profile.languages[2])}
+                  </h3>
+                </div>
+                <div className="info-perfil">
+                  <h2>Pais:</h2>
+                  <h3 className="country-profile">{getCountryLabel(profile.country)}</h3>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <h1>No se encontró el perfil</h1>
+          )}
+        </>
       )}
     </>
   );

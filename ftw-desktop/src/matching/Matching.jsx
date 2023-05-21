@@ -70,6 +70,14 @@ const Matching = () => {
     }
   }, [Loading, navigate, user.profile]);
   
+  if (matching === undefined) {
+    return (
+      <div className="no-profiles">
+        <h1>No hay perfiles disponibles</h1>
+      </div>
+    );
+  }
+  
   return (
     <div className='main'>
       <div className='like_user' onClick={handleLikeClick}>

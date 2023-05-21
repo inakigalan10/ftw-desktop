@@ -85,9 +85,11 @@ export const MatchList = ({v}) => {
               </div>
               </Link>
               <div className='action-match' >
+              <Link to={"/chat/" + v.chat_id}>
                 <div className='message-match'>
                   <FaRegPaperPlane/>
                 </div>
+              </Link>
                 <div
                   className='more-action-match'
                   onClick={() => setShowMenu(!showMenu)} // Cambia el estado del menú al hacer clic

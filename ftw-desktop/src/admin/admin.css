@@ -1,0 +1,99 @@
+.menu {
+    display: flex;
+   
+
+    margin-right: 40%;
+   
+    position: fixed;
+    top:3%;
+    left: 20%;
+    border-radius: 10px;
+   
+  }
+  
+  .admin-item {
+    background-color: #588147;
+    margin-left: 25px;
+    padding: 10px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 10px;
+    transition: 1s;
+  }
+
+  .admin-active{
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    background-color: grey;
+    transition: 1s;
+    color: white;
+
+  }
+  
+  .admin-item:hover {
+    background-color: white;
+    color: black;
+  }
+
+  .admin-user-list{
+    margin-left: -20%;
+  }
+  
+.admin-user-list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    width: 150%;
+  }
+  
+  .admin-user-list-item:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .admin-user-list-item-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .admin-user-list-item-image {
+    margin-right: 10px;
+  }
+  
+  .admin-user-list-item-image img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  
+  .admin-user-list-item-info {
+    display: flex;
+
+  }
+  .admin-user-list-item-info div{
+    margin-left: 2%;
+  }
+  
+  .admin-user-list-item-id,
+  .admin-user-list-item-username,
+  .admin-user-list-item-email {
+    margin: 0;
+    padding: 5px 0;
+    color: black; /* Texto en color negro */
+    overflow: hidden; /* Oculta el contenido que se desborda */
+    text-overflow: ellipsis; /* Agrega puntos suspensivos (...) cuando el texto se desborda */
+  }
+  
+  .admin-action-delete {
+    margin-top: 10%;
+    display: flex;
+    align-items: center;
+    color: red; /* Color rojo */
+    font-size: 20px; /* Tamaño de fuente más grande */
+  }
+  
+  .admin-delete-label {
+    margin-left: 5px;
+  }
