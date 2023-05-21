@@ -119,9 +119,7 @@ const Chat = () =>
             message.sender === username ? (
             
               <div key={message.id} className='you'>
-                <div className='sender'>
-                  <span>{message.sender}</span>
-                </div>
+                
                 <div className='contenido'>
                   <span>{message.content}</span>
                 </div>
@@ -131,9 +129,7 @@ const Chat = () =>
               </div>
             ) : (
               <div key={message.id} className='other'>
-                <div className='sender'>
-                  <span>{message.sender}</span>
-                </div>
+                
                 <div className='contenido'>
                   <span>{message.content}</span>
                 </div>

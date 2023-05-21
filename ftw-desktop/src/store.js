@@ -3,6 +3,7 @@ import matchingSlice from './matching/slice/matchingSlice'
 import matchSlice from './Matches/slice/matchSlice'
 import profileSlice from './Profile/slice/profileSlice'
 import userSlice from './Profile/slice/user/userSlice'
+import reportesSlice from './admin/ReportList/slice/reportesSlice'
 
 
 
@@ -13,7 +14,8 @@ export const store = configureStore({
     profile:profileSlice,
     matching:matchingSlice,
     match:matchSlice,
-    user:userSlice
+    user:userSlice,
+    reporte:reportesSlice
 
     
   },

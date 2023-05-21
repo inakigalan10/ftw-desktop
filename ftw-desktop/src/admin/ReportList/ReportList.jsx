@@ -1,9 +1,55 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../../userContext';
+import { getUser } from '../../Profile/slice/user/thunks';
+import { useDispatch, useSelector } from 'react-redux';
 
-const ReportList = () => {
+const ReportList = ({ v }) => {
+  const dispatch = useDispatch();
+
+  const { authToken, setAuthToken, idUser, setIdUser, usernameUser, setUsernameUser } = useContext(UserContext);
+  const [showPopup, setShowPopup] = useState(false);
+  const [blurBackground, setBlurBackground] = useState(false);
+  const {user, isLoading} = useSelector((state) => state.user);
+
+  const handleOpenPopup = () => {
+    setShowPopup(true);
+    setBlurBackground(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    setBlurBackground(false);
+  };
+  console.log(v.reported_user)
+
+  useEffect(() => {
+    dispatch(getUser(authToken, v.reported_user))
+  }, [])
+  
   return (
-    <div>ReportList</div>
-  )
+    <div className="admin-user-list-item" key={v.id}>
+      <div className="admin-user-list-item-container">
+        <div className="admin-user-list-item-info" onClick={handleOpenPopup}>
+          <div>
+            <h2 className="admin-user-list-item-id">{v.id}</h2>
+          </div>
+          <div>
+            <h2 className="admin-user-list-item-username">{v.subject}</h2>
+          </div>
+        </div>
+      </div>
+      {showPopup && (
+        <div className={`popup ${blurBackground ? 'blur' : ''}`}>
+          <h2>User: {user.username} </h2>
+          
+          <h2>Motivo: {v.subject}</h2>
+          <h2>Descripcion: {v.description}</h2>
+          <button onClick={handleClosePopup}>Cerrar</button>
+
+        </div>
+      )}
+    </div>
+  );
 }
 
-export default ReportList
+export default ReportList;
