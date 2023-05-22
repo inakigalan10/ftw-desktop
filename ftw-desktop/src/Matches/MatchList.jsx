@@ -51,7 +51,7 @@ export const MatchList = ({v}) => {
     let confirma = confirm("Estas  segur?");
 
     if (confirma) {
-      fetch("http://127.0.0.1:8000/match-delete/" + id, {
+      fetch("http://equip10.insjoaquimmir.cat/match-delete/" + id, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

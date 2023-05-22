@@ -14,7 +14,7 @@ export const useRegister = () => {
       password: password,
       password_confirm: password_confirm,
     };
-    fetch("http://127.0.0.1:8000/signup/", {
+    fetch("http://equip10.insjoaquimmir.cat/signup/", {
       method: "POST",
       headers: {
         Accept: "application/json",

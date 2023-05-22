@@ -13,7 +13,7 @@ import {
   
       try {
         const data = await fetch(
-          "http://127.0.0.1:8000/admin/report-list/" ,
+          "http://equip10.insjoaquimmir.cat/admin/report-list/" ,
           {
             headers: {
               Accept: "application/json",

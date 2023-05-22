@@ -13,7 +13,7 @@ import {
   
       try {
         const data = await fetch(
-          "http://127.0.0.1:8000/profile-image/"+id ,
+          "http://equip10.insjoaquimmir.cat/profile-image/"+id ,
           {
             headers: {
               Accept: "application/json",
