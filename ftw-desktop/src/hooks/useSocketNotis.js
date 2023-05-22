@@ -43,7 +43,9 @@ const useSocketNotis = () => {
     }
   };
 
-
+  const onMessage = (callback) => {
+    socketRef.current.onmessage = callback;
+  };
   const onClose = (callback) => {
     socketRef.current.onclose = callback;
   };
@@ -63,7 +65,7 @@ const useSocketNotis = () => {
   return {
     connect,
     disconnect,
-    
+    onMessage,
     onClose,
     offClose,
     onError,

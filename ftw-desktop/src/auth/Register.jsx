@@ -17,7 +17,7 @@
     const [passwordError, setPasswordError] = useState('');
     const [password2Error, setPassword2Error] = useState('');
     
-    let { usuari, setUsuari, authToken, setAuthToken } = useContext(UserContext);
+    let { authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser, idProfile, setIdProfile } = useContext(UserContext);
 
     const {doRegister} = useRegister();
 

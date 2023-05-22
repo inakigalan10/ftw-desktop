@@ -10,7 +10,7 @@ import { GrSend } from 'react-icons/gr';
 const Chat = () => 
 {
 
-    const { authToken,setAuthToken,idUser,setIdUser,username,setUsername} = useContext(UserContext);
+    const { authToken, setAuthToken, idUser, setIdUser, usernameUser, setUsernameUser, idProfile, setIdProfile, Chat, setChat } = useContext(UserContext);
     const [messages, setMessages] = useState([]);
     const socketRef = useRef(null);
     const  chat_id  = useParams();
@@ -93,10 +93,10 @@ const Chat = () =>
     if (messages.length > 0) {
       // Obtener el nombre de la otra persona basado en el primer mensaje
       const firstMessage = messages[0];
-      const otherPerson = firstMessage.sender === username ? firstMessage.receiver : firstMessage.sender;
+      const otherPerson = firstMessage.sender === usernameUser ? firstMessage.receiver : firstMessage.sender;
       setOtherPersonName(otherPerson);
     }
-  }, [messages, username]);
+  }, [messages, usernameUser]);
     
   useEffect(() => {
     
@@ -105,6 +105,7 @@ const Chat = () =>
     }
   }, [messages]);
 
+  console.log(otherPersonName)
 
   return (
     <div className='chat'>
@@ -115,8 +116,8 @@ const Chat = () =>
         <div className='listado-message' ref={listadoRef} >
           {/* Renderizar los mensajes */}
           {messages.map((message) => (
-            console.log(message.sender, username),
-            message.sender === username ? (
+            
+            message.sender === usernameUser ? (
             
               <div key={message.id} className='you'>
                 

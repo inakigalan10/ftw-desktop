@@ -7,7 +7,7 @@ import { UserContext } from "../userContext";
 import { useForm } from "../hooks/useForm";
 
 export const Login = ({ setLogin }) => {
-  let {authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser, sessionCookie, setSessionCookie, idProfile,setIdProfile } = useContext(UserContext);
+  let {authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser, idProfile, setIdProfile } = useContext(UserContext);
 
   const { doLogin } = useLogin();
 

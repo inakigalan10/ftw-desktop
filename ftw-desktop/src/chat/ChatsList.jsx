@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { useContext } from 'react';
+import { UserContext } from '../userContext';
+import ChatListItem from './ChatListItem';
+import { ChatContext } from '../ChatContext';
 
 const ChatsList = () => {
+  const { chats } = useContext(ChatContext);
+  const parsedListChat = Array.isArray(chats) ? chats : []; // Verificar si ListChat ya es un array
+  
+  // Ordenar los chats de más nuevos a más antiguos
+  parsedListChat.sort((a, b) => new Date(b.last_message_date) - new Date(a.last_message_date));
+  console.log(chats)
+  
   return (
-    <div>ChatsList</div>
-  )
+    <div>
+      {parsedListChat.map((v, index) => (
+        <ChatListItem key={v.id} v={v} />
+      ))}
+    </div>
+  );
 }
 
-export default ChatsList
+
+export default ChatsList;

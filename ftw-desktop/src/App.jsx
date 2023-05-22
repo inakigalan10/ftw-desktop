@@ -10,12 +10,15 @@ import { UserContext } from './userContext'
 import { LoginRegister } from './auth/LoginRegister';
 import { Profile } from './Profile/Profile';
 import { MatchsList } from './Matches/MatchsList';
+import  ChatsList  from './chat/ChatsList';
+
 import CreateProfile  from './Profile/CreateProfile/CreateProfile';
 
 import Chat from './chat/Chat';
 import ProfileUpdate from './Profile/ProfileUpdate';
 import useSocket from './hooks/useSocket';
 import useSocketNotis from './hooks/useSocketNotis';
+import { ChatProvider } from './ChatContext';
 
 
 
@@ -23,7 +26,10 @@ function App() {
 
   let [authToken,setAuthToken] = useState("");
   let [idUser,setIdUser]= useState("");
-  let [username,setUsername]= useState("")
+  let [usernameUser,setUsernameUser]= useState("")
+  let [idProfile, setIdProfile]= useState("")
+  let [readChat, setReadChat]= useState("")
+  let [ListChat, setListChat]= useState("")
   
   useEffect(() => {
     const token = localStorage.getItem('authToken');
@@ -33,12 +39,22 @@ function App() {
 
     const username = localStorage.getItem('username');
     if (username) {
-      setUsername(username);
+      setUsernameUser(username);
     }
 
     const id = localStorage.getItem('idUsername');
     if (id) {
       setIdUser(id);
+    }
+
+    const idProfile = localStorage.getItem('idProfile');
+    if (idProfile) {
+      setIdProfile(idProfile);
+    }
+
+    const listchat = localStorage.getItem('chatList');
+    if (listchat) {
+      setListChat(listchat);
     }
   }, []);
 
@@ -46,7 +62,7 @@ function App() {
 
   return (
     <>
-        <UserContext.Provider value= {{authToken,setAuthToken,idUser,setIdUser,username,setUsername}}>
+        <UserContext.Provider value= {{authToken,setAuthToken,idUser,setIdUser,usernameUser,setUsernameUser, idProfile, setIdProfile, readChat, setReadChat, ListChat, setListChat}}>
         
        
         {authToken ? (
@@ -54,8 +70,10 @@ function App() {
            <Routes>
             <Route path="/" element={
               <>
-                <Menu />
-                <Matching />
+                <ChatProvider>
+                  <Menu />
+                  <Matching />
+                </ChatProvider>
               </>
             } />
             
@@ -66,31 +84,46 @@ function App() {
             
             <Route path="/profile/:id" element={
               <>
+              <ChatProvider>
                 <Menu />
                 <Profile/>
+              </ChatProvider>
               </>
             } />
             <Route path="/profile/edit/:id" element={
               <>
-                <Menu />
-                <ProfileUpdate/>
+                <ChatProvider>
+                  <Menu />
+                  <ProfileUpdate/>
+                </ChatProvider>
               </>
             } />
             
             
             <Route path="/matches" element={
               <>
-                <Menu />
-                <MatchsList />
+                <ChatProvider>
+                  <Menu />
+                  <MatchsList />
+                </ChatProvider>
               </>
             } />
             
             
-            
+            <Route path="/chatList" element={
+              <>
+                <ChatProvider>
+                  <Menu />
+                  <ChatsList />
+                </ChatProvider>
+              </>
+            } />
             <Route path="/chat/:id" element={
               <>
-                <Menu />
-                <Chat />
+               <ChatProvider>
+                  <Menu />
+                  <Chat />
+                </ChatProvider>
               </>
             } />
 

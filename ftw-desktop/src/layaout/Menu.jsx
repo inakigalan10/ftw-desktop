@@ -7,6 +7,8 @@ import { TbMessages } from 'react-icons/tb';
 import { Link, useLocation } from 'react-router-dom';
 import { UserContext } from "../userContext";
 import { ImExit } from 'react-icons/im';
+import useSocketNotis from '../hooks/useSocketNotis';
+import { ChatContext } from '../ChatContext';
 
 
 const Menu = () => {
@@ -15,15 +17,18 @@ const Menu = () => {
   const isActive = (path) => {
     return location.pathname === path ? "active" : "";
   };
-  const {authToken,setAuthToken,idUser,setIdUser,username,setUsername} = useContext(UserContext);
-
+  const {authToken,setAuthToken,idUser,setIdUser,usernameUser,setUsernameUser, idProfile, setIdProfile, readChat, setReadChat, ListChat, setListChat} = useContext(UserContext);
+  const socket = useSocketNotis();
+  const { chats, updateChats, notis, updateNotis } = useContext(ChatContext);
   const handleLogout = () => {
     localStorage.removeItem('authToken'); // Eliminar el token del local storage
     setAuthToken(null); // Actualizar el estado del token en el contexto (si es necesario)
     localStorage.removeItem('username'); // Eliminar el token del local storage
-    setUsername(null); // Actualizar el estado del token en el contexto (si es necesario)
+    setUsernameUser(null); // Actualizar el estado del token en el contexto (si es necesario)
     localStorage.removeItem('idUsername'); // Eliminar el token del local storage
     setIdUser(null); // Actualizar el estado del token en el contexto (si es necesario)
+    localStorage.removeItem('idProfile'); // Eliminar el token del local storage
+    setIdProfile(null);
   };
   
   useEffect(() => {
@@ -32,6 +37,40 @@ const Menu = () => {
     }
   }, [authToken]);
 
+  useEffect(() => {
+    socket.connect();
+
+    socket.onMessage((event) => {
+      const data = JSON.parse(event.data);
+      console.log("aas",chats);
+
+      if (data.type === 'chat_list') {
+        updateChats(data.chat_list);
+
+        
+      } else if (data.type === 'unread_notification_list') {
+        updateNotis(data.unread_notification);
+        
+      } else if (data.type === 'chat.update') {
+        console.log("abdvhsdj",chats)
+        const existingChatIndex = chats.findIndex((chat) => chat.id === data.id);
+
+        if (existingChatIndex !== -1) {
+          const updatedChats = chats.map((chat) => {
+            if (chat.id === data.id) {
+              return data.chat_data;
+            } else {
+              return chat;
+            }
+          });
+          updateChats(updatedChats);
+        } else {
+          const updatedChats = [...chats, data.chat_data];
+          updateChats(updatedChats);
+        }
+      } 
+    });
+  }, []);
 
   return (
     <div className="menu-container">
@@ -41,7 +80,7 @@ const Menu = () => {
         </div>
         <div>              
           <Link to={`/profile/${idUser}`} style={{ color: "black" }}>
-                  <h1 className="user-name">{username}</h1>
+                  <h1 className="user-name">{usernameUser}</h1>
           </Link>
           
           
@@ -74,7 +113,7 @@ const Menu = () => {
             <TbMessages />
           </div>
           <div>
-            <Link to={"/messages"} style={{ color: "black" }}>
+            <Link to={"/chatList"} style={{ color: "black" }}>
               Message
             </Link>
           </div>

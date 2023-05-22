@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 const Matching = () => {
   const dispatch = useDispatch();
   
-  let {authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser} = useContext(UserContext);
+  const { authToken,setAuthToken,idUser,setIdUser,usernameUser,setUsernameUser, idProfile, setIdProfile, readChat, setReadChat, ListChat, setListChat } = useContext(UserContext);
   console.log(authToken);
   
   const {matching, isLoading, error,info} = useSelector(state => state.matching)
@@ -28,10 +28,13 @@ const Matching = () => {
   const [Loading, setLoading] = useState(true);
   const [showPopUpLike, setShowPopUpLike] = useState(false);
   const [ShowPopUpDislike, setShowPopUpDislike] = useState(false);
-  
+  console.log("sddg " ,ListChat)
+
   useEffect(() => {
-    dispatch(getUser(authToken, idUser));
     dispatch(getProfileMatch(authToken))
+    if (!idProfile) {
+      navigate('/createProfile');
+    }
   }, []);
 
   const handleLikeClick = () => {
@@ -46,28 +49,13 @@ const Matching = () => {
     dispatch(getProfileMatch(authToken));
   };
 
-  useEffect(() => {
-    if (!user.profile) {
-      const timer = setTimeout(() => {
-        setLoading(false);
-      }, 500); 
-
-      return () => {
-        clearTimeout(timer); // Limpiar el temporizador si el componente se desmonta antes de que se complete
-      };
-    } else {
-      setLoading(false);
-    }
-  }, [user.profile]);
-
+ 
   useEffect(() => {
     if (Loading) {
       return; // Mostrar el indicador de carga mientras se carga el perfil
     }
     
-    if (!user.profile) {
-      navigate('/createProfile');
-    }
+    
   }, [Loading, navigate, user.profile]);
   
   if (matching === undefined) {
