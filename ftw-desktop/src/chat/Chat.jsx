@@ -105,7 +105,7 @@ const Chat = () =>
     }
   }, [messages]);
 
-  console.log(otherPersonName)
+  console.log()
 
   return (
     <div className='chat'>

@@ -9,16 +9,23 @@ const ChatsList = () => {
   
   // Ordenar los chats de más nuevos a más antiguos
   parsedListChat.sort((a, b) => new Date(b.last_message_date) - new Date(a.last_message_date));
-  console.log(chats)
   
   return (
     <div>
-      {parsedListChat.map((v, index) => (
-        <ChatListItem key={v.id} v={v} />
-      ))}
+      <div>
+        <h1>Listado de Chats</h1>
+      </div>
+      <div>
+        {parsedListChat.length === 0 ? (
+          <h2>No hay chats disponibles</h2>
+        ) : (
+          parsedListChat.map((v, index) => (
+            <ChatListItem key={v.id} v={v} />
+          ))
+        )}
+      </div>
     </div>
   );
 }
-
 
 export default ChatsList;
