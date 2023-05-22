@@ -32,5 +32,43 @@ import {
       }
     };
   };
+
+  export const addReport = (other_user_id, report, authToken) => {
+    return async (dispatch, getState) => {
+      dispatch(startLoadingMatchs());
+      let {subject, description } = report;
+      let reported_user = other_user_id;
+     
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          Authorization: 'Token ' + authToken,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          reported_user,
+          subject,
+          description,
+          
+        }),
+      };
+  
+      fetch('http://127.0.0.1:8000/report/', requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          if (data.success === true) {
+            dispatch(setInfo('Report enviado correctamente'));
+            alert("Report enviado correctamente")
+          } else {
+            dispatch(setError(data.message));
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          dispatch(setError('Error en la solicitud'));
+        });
+    };
+  };
   
   

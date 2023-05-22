@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from "../userContext";
 import { Link } from 'react-router-dom';
 import { FaRegPaperPlane } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { addReport } from './slice/thunks';
 
 export const MatchList = ({v}) => {
   const { authToken,setAuthToken,idUser,setIdUser,usernameUser, setUsernameUser } = useContext(UserContext);
@@ -9,8 +11,20 @@ export const MatchList = ({v}) => {
   let [refresca, setRefresca] = useState(false);
   const [other_user_username, setOtherUserUsername] = useState("");
   const [other_user_Id, setOtherUserId] = useState("");
-  console.log(idUser, v.user1_data.user_id);
+  const [showPopup, setShowPopup] = useState(false);
+  const [blurBackground, setBlurBackground] = useState(false);
+  const dispatch = useDispatch();
+
   
+  const handleOpenPopup = () => {
+    setShowPopup(true);
+    setBlurBackground(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    setBlurBackground(false);
+  };
   
   useEffect(() => {
     const { user1_data, user2_data } = v;
@@ -57,6 +71,27 @@ export const MatchList = ({v}) => {
     }
   };
 
+  const [report, setReport] = useState({
+    subject: "",
+    description: "",
+    
+});
+
+const handleChange = (event) => {
+  const { name, value, type, checked } = event.target;
+  setReport((prevReport) => ({
+  ...prevReport,
+  [name]: type === 'checkbox' ? [...prevReport[name], value] : value,
+  }));
+};
+
+
+const handleSubmit = (event) => {
+  event.preventDefault();
+  
+  dispatch(addReport(other_user_Id, report, authToken));
+};
+
  
 
   return (
@@ -88,12 +123,38 @@ export const MatchList = ({v}) => {
             {showMenu && ( // Muestra el menú si el estado es verdadero
               <div className='menu-match'>
                 <div className='menu-option-match delete-match' onClick={(e) => deleteMatch(v.match_id, e)}>Delete</div>
-                <div className='menu-option-match report-match'>Report</div>
+                <div className='menu-option-match report-match'  onClick={handleOpenPopup}>Report</div>
               </div>
             )}
           </div>
+          {showPopup && (
+            <div className={`popup-admin ${blurBackground ? 'blur' : ''}`}>
+              <form onSubmit={handleSubmit}>
+                  <label htmlFor="subject">Motivo: </label>
+                  <input 
+                    type="text" 
+                    id='subject' 
+                    name='subject'
+                    value={report.subject}
+                    onChange={handleChange}/>
+                    <label htmlFor="description">Descrpcion: </label>
+                    <textarea 
+                      type="text" 
+                      id='description' 
+                      name='description'
+                      value={report.description}
+                      onChange={handleChange}/>
+
+                      <button className='button-createPerfil' type='submit'>Enviar</button>
+              </form>
+              <br />
+              <button className='popup-admin-close' onClick={handleClosePopup}>Cerrar</button>
+
+          </div>
+      )}
         </div>
       </div>
     </>
   );
 };
+

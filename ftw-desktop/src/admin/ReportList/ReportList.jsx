@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../userContext';
 import { getUser } from '../../Profile/slice/user/thunks';
 import { useDispatch, useSelector } from 'react-redux';
+import { RiDeleteBinLine } from 'react-icons/ri';
+
 
 const ReportList = ({ v }) => {
   const dispatch = useDispatch();
@@ -10,7 +12,27 @@ const ReportList = ({ v }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [blurBackground, setBlurBackground] = useState(false);
   const {user, isLoading} = useSelector((state) => state.user);
+  let [refresca, setRefresca] = useState(false);
 
+  const deleteReport = (id, e) => {
+    e.preventDefault();
+
+    let confirma = confirm("Estas  segur?");
+
+    if (confirma) {
+      fetch("http://127.0.0.1:8000/admin/report-delete/" + id, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Token " + authToken,
+        },
+        method: "DELETE",
+      })
+        setRefresca(true);
+        alert("borrado correctamente ");
+        
+    }
+  };
   const handleOpenPopup = () => {
     setShowPopup(true);
     setBlurBackground(true);
@@ -36,7 +58,14 @@ const ReportList = ({ v }) => {
           <div>
             <h2 className="admin-user-list-item-username">{v.subject}</h2>
           </div>
+          
         </div>
+        <div className='admin-action'>
+              <div className='admin-action-delete' onClick={(e) => deleteReport(v.id, e)}>
+                <RiDeleteBinLine />
+                <span className='admin-delete-label'>Eliminar</span>
+              </div>
+          </div>
       </div>
       {showPopup && (
         <div className={`popup ${blurBackground ? 'blur' : ''}`}>
