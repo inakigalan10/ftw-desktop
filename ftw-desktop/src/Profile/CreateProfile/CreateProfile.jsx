@@ -4,9 +4,13 @@ import { addProfile } from '../slice/thunks';
 import { useContext } from "react";
 import { UserContext } from "../../userContext";
 import'./CreateProfile.css'
+import { useNavigate } from 'react-router-dom';
 
 const CreateProfile = () => {
     let { authToken,setAuthToken } = useContext(UserContext);
+    const [showAlert, setShowAlert] = useState(false);
+
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
     const [perfil, setPerfil] = useState({
@@ -29,7 +33,20 @@ const CreateProfile = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         
+        if (
+          perfil.description === "" ||
+          perfil.player_type === "" ||
+          perfil.play_schedule === "" ||
+          perfil.genres.length === 0 ||
+          perfil.languages.length === 0 ||
+          perfil.country === ""
+        ) {
+          setShowAlert(true);
+          return;
+        }
+      
         dispatch(addProfile(perfil, authToken));
+        navigate('/');
     };
 
   return (
@@ -182,6 +199,11 @@ const CreateProfile = () => {
 
             <button className='button-createPerfil' type='submit'>Enviar</button>
           </form>
+          {showAlert && (
+          <div className="alert">
+            Por favor, completa todos los campos del formulario.
+          </div>
+)}
         </div>
       </div>
     </>

@@ -59,6 +59,9 @@ import {
           console.log(data);
           if (data.success === true) {
             dispatch(setInfo('Perfil correctamente guardado'));
+            
+            localStorage.setItem('idProfile',data.id)
+
           } else {
             dispatch(setError(data.message));
           }

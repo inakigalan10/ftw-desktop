@@ -1,14 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../userContext";
 
-
 export const useRegister = () => {
-  const {authToken,setAuthToken,idUser,setIdUser,usernameUser,setUsernameUser, idProfile, setIdProfile} = useContext(UserContext);
+  const { authToken, setAuthToken, idUser, setIdUser, usernameUser, setUsernameUser, idProfile, setIdProfile } = useContext(UserContext);
   const [error, setError] = useState("");
+  const [registerError, setRegisterError] = useState(""); // Nuevo estado para el mensaje de error
 
   const doRegister = (username, email, password, password_confirm) => {
     console.log("Comprobando credenciales...");
-    event.preventDefault();
     const data = {
       username: username,
       email: email,
@@ -23,28 +22,24 @@ export const useRegister = () => {
       },
       body: JSON.stringify(data),
     })
-   
       .then((response) => response.json())
       .then((resposta) => {
         if ('token' in resposta ) {
           console.log(resposta);
           setAuthToken(resposta.token);
-          setIdUser(resposta.user.id)
+          setIdUser(resposta.user.id);
           setUsernameUser(resposta.user.username);
           setIdProfile(resposta.user.profile);
 
-          +
           localStorage.setItem('authToken', resposta.token);
-          localStorage.setItem('username',resposta.user.username)
-          localStorage.setItem('idUsername',resposta.user.id)
-          localStorage.setItem('idProfile',resposta.user.profile)
-
+          localStorage.setItem('username', resposta.user.username);
+          localStorage.setItem('idUsername', resposta.user.id);
+          localStorage.setItem('idProfile', resposta.user.profile);
 
           console.log(authToken);
-         
         } else {
           setAuthToken("");
-          setError("error");
+          setRegisterError(resposta.username[0]); // Guardar el mensaje de error del username en el estado
         }
       })
       .catch((error) => {
@@ -52,6 +47,5 @@ export const useRegister = () => {
       });
   };
   
-  return { doRegister, error, setError };
-  
+  return { doRegister, error, setError, registerError }; // Añadir registerError al objeto de retorno
 };

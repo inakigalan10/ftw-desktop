@@ -56,11 +56,13 @@ import {
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
-          if (data.success === true) {
+          if (data.success === true && data.message != 'Match') {
             dispatch(setInfo('Like al perfil'));
             dispatch(setMatch(data.match))
             
-          } else {
+          } else if (data.message = 'Match') {
+            dispatch(setInfo('Match'));
+          }else{
             dispatch(setError(data.message));
           }
         })

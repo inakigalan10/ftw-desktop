@@ -18,7 +18,7 @@ const Matching = () => {
     ListChat,
     setListChat,
   } = useContext(UserContext);
-  const { matching, isLoading, error, info } = useSelector(
+  const { matching, isLoading, error, message, info} = useSelector(
     (state) => state.matching
   );
   const { user } = useSelector((state) => state.user);
@@ -35,28 +35,42 @@ const Matching = () => {
   }, [dispatch, authToken, idProfile, navigate]);
 
   const handleLikeClick = async () => {
-    setShowPopUpLike(true);
-    await dispatch(Like(authToken, matching.user_id));
-    dispatch(getProfileMatch(authToken));
-    setTimeout(() => {
-      setShowPopUpLike(false);
-    }, 2000);
+    if (!showPopUpLike) {
+      setShowPopUpLike(true);
+      dispatch(Like(authToken, matching.user_id));
+      setTimeout(() => {
+        setShowPopUpLike(false);
+        dispatch(getProfileMatch(authToken));
+      }, 2000);
+    }
   };
 
   const handleDislikeClick = async () => {
-    setShowPopUpDislike(true);
-    await dispatch(dislike(authToken, matching.user_id));
-    dispatch(getProfileMatch(authToken));
-    setTimeout(() => {
-      setShowPopUpDislike(false);
-    }, 2000);
+    if (!showPopUpDislike) {
+      setShowPopUpDislike(true);
+      dispatch(dislike(authToken, matching.user_id));
+      setTimeout(() => {
+        setShowPopUpDislike(false);
+        dispatch(getProfileMatch(authToken));
+      }, 2000);
+    }
   };
 
   useEffect(() => {
-    if (shouldRedirect) {
-      setCurrentProfile(null);
+    if (matching === undefined) {
+      navigate('/'); // Redirigir si no hay perfiles disponibles
     }
-  }, [shouldRedirect]);
+  }, [matching, navigate]);
+  
+  console.log(info)
+  
+  useEffect(() => {
+    
+    if (info == 'Match') {
+      alert('¡Tienes un Match!');
+    }
+  }, [info]);
+  
 
   if (matching === undefined) {
     return (
@@ -247,8 +261,9 @@ const Matching = () => {
             <p>{matching && matching.description}</p>
           </div>
         </div>
+       
       </div>
-      
+ 
       {showPopUpLike && (
         <div>
           <div className="pop-up">
@@ -273,7 +288,7 @@ const Matching = () => {
           </div>
         </div>
       )}
-      {shouldRedirect}
+     
     </div>
   );
 };

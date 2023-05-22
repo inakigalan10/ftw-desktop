@@ -33,6 +33,7 @@ export const useLogin = () => {
         } else {
           setAuthToken("");
           setError("Usuario o contraseña incorrecta");
+          alert("Usuario o contraseña incorrecta")
         }
       })
       .catch((error) => {

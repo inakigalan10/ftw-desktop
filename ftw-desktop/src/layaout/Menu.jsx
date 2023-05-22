@@ -60,7 +60,7 @@ const Menu = () => {
         updateNotis(data.unread_notification);
         
       } else if (data.type === 'chat.update') {
-        console.log("abdvhsdj",chats)
+        console.log("abdvhsdj",data)
         const existingChatIndex = chats.findIndex((chat) => chat.id === data.id);
 
         if (existingChatIndex !== -1) {
