@@ -11,10 +11,12 @@ const initialState = {
     languages: [],
     country: "",   
   },
+  match:"",
   action:null,
   isLoading: false,
   error: "",
   info: "",
+  message:"",
 };
 
 export const matchingSlice = createSlice({
@@ -46,6 +48,11 @@ export const matchingSlice = createSlice({
       state.info = "";
       state.isLoading = false;
     },
+    
+    setMatch: (state, action) => {
+      state.match = action.payload;
+      state.isLoading = false;
+    },
   },
 });
 
@@ -56,5 +63,6 @@ export const {
   setMatching,
   setInfo,
   setError,
+  setMatch,
 } = matchingSlice.actions;
 export default matchingSlice.reducer;

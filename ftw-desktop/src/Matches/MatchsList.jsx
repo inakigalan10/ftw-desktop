@@ -7,6 +7,7 @@ import { MatchList } from './MatchList';
 import { getMatchs } from './slice/thunks';
 import './matches.css'
 
+
 export const MatchsList = () => {
   const dispatch = useDispatch();
   const {matchs = [], isLoading} = useSelector((state) => state.match);

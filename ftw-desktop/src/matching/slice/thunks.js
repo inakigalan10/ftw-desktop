@@ -4,6 +4,7 @@ import {
   setMatching,
   setInfo,
   setError,
+  setMatch
   } from "./matchingSlice";
   
   // Obtenim un sol profile
@@ -51,12 +52,13 @@ import {
         body: JSON.stringify(bodyData),
       };
   
-      fetch('http://127.0.0.1:8000/like-dislike/', requestOptions)
+      fetch('http://127.0.0.1:8000/like-dislike/'+id+"/", requestOptions)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
           if (data.success === true) {
             dispatch(setInfo('Like al perfil'));
+            dispatch(setMatch(data.match))
             
           } else {
             dispatch(setError(data.message));

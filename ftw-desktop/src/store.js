@@ -4,6 +4,7 @@ import matchSlice from './Matches/slice/matchSlice'
 import profileSlice from './Profile/slice/profileSlice'
 import userSlice from './Profile/slice/user/userSlice'
 import reportesSlice from './admin/ReportList/slice/reportesSlice'
+import  fotoSlice  from './foto/fotoSlice'
 
 
 
@@ -15,7 +16,8 @@ export const store = configureStore({
     matching:matchingSlice,
     match:matchSlice,
     user:userSlice,
-    reporte:reportesSlice
+    reporte:reportesSlice,
+    foto:fotoSlice
 
     
   },

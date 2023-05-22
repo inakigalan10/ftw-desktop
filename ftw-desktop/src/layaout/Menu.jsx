@@ -9,6 +9,8 @@ import { UserContext } from "../userContext";
 import { ImExit } from 'react-icons/im';
 import useSocketNotis from '../hooks/useSocketNotis';
 import { ChatContext } from '../ChatContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFoto } from '../foto/thunk';
 
 
 const Menu = () => {
@@ -20,6 +22,12 @@ const Menu = () => {
   const {authToken,setAuthToken,idUser,setIdUser,usernameUser,setUsernameUser, idProfile, setIdProfile, readChat, setReadChat, ListChat, setListChat} = useContext(UserContext);
   const socket = useSocketNotis();
   const { chats, updateChats, notis, updateNotis } = useContext(ChatContext);
+  const dispatch = useDispatch();
+  const {foto, isLoading} = useSelector((state) => state.foto);
+  useEffect(() => {
+    dispatch(getFoto(authToken, idUser))
+  }, [])
+
   const handleLogout = () => {
     localStorage.removeItem('authToken'); // Eliminar el token del local storage
     setAuthToken(null); // Actualizar el estado del token en el contexto (si es necesario)
@@ -71,12 +79,14 @@ const Menu = () => {
       } 
     });
   }, []);
+  const defaultImageUrl = '../../public/img/img-user.jpg';
+
 
   return (
     <div className="menu-container">
       <div className="user-info">
         <div>
-          <img src="../public/img/img-user.jpg" alt="User avatar" />
+          {/* <img src={foto.image ? foto.image : defaultImageUrl} alt="User avatar" /> */}
         </div>
         <div>              
           <Link to={`/profile/${idUser}`} style={{ color: "black" }}>
