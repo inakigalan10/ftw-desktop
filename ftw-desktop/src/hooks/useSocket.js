@@ -9,7 +9,7 @@ const useSocket = (chatId) => {
     if (chatId) {
       // Construye la URL del WebSocket utilizando el ID del chat
       socketRef.current = new WebSocket(
-        `ws://equip10.insjoaquimmir.cat//ws/chat/${chatId}/?token=${authToken}`
+        `ws://equip10.insjoaquimmir.cat/ws/chat/${chatId}/?token=${authToken}`
       ); // Actualiza la URL con la dirección de tu servidor WebSocket
 
       // Manejadores de eventos del WebSocket
