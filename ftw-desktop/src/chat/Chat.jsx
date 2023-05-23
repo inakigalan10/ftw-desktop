@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import useSocket from '../hooks/useSocket';
 import './chat.css';
 import { GrSend } from 'react-icons/gr';
+import { ChatContext } from '../ChatContext';
 
 
 const Chat = () => 
@@ -17,7 +18,8 @@ const Chat = () =>
     const [otherPersonName, setOtherPersonName] = useState(''); // Variable de estado para almacenar el nombre de la otra persona
     const listadoRef = useRef(null);
     const socket = useSocket(chat_id.id); // Obtiene la instancia del socket WebSocket
-    
+    const { chats, setChats } = useContext(ChatContext);
+
 
     
     useEffect(() => {
@@ -35,11 +37,15 @@ const Chat = () =>
 
             // Actualiza la lista de mensajes cuando se recibe la carga inicial de mensajes
             setMessages(data.messages);
+      
             
             }else if (data.type === 'chat.messages') {
-                
+               
                 // Agrega el nuevo mensaje a la lista de mensajes existentes
                 setMessages((prevMessages) => [...prevMessages, data.content]);
+                socket.ReadMessage(data.content.message_id);
+                console.log(chats)
+                
                 
             }
       

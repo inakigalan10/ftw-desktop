@@ -1,23 +1,37 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../userContext';
 import { Link } from 'react-router-dom';
-import './chat.css'
+import './chat.css';
+import { ChatContext } from '../ChatContext';
 
-const ChatListItem = ({v}) => {
-  const { authToken, setAuthToken, idUser, setIdUser, usernameUser, setUsernameUser, idProfile, setIdProfile, Chat, setChat } = useContext(UserContext);
+const ChatListItem = ({ chat }) => {
+  const { chats, updateChats } = useContext(ChatContext);
+
+
+
+  const handleChatClick = () => {
+    const updatedChats = chats.map((c) => {
+      if (c.id === chat.id) {
+        // Actualizar el campo "read" a true para el chat seleccionado
+        return { ...c, read: true };
+      }
+      return c;
+    });
+
+    updateChats(updatedChats);
+  };
 
   return (
-    <div className='chat-list-item' key={v.id}>
-      
-      <Link to={"/chat/" + v.id}>
-        <div>
-          <div className='chat-username'>
-              <h2>{v.other_user_username}</h2>
+    <div className='chat-list-item'>
+        <Link to={`/chat/${chat.id}`} onClick={handleChatClick}>
+          <div>
+            <div className='chat-username'>
+              <h2>{chat.other_user_username}{chat.id}</h2>
+            </div>
           </div>
-        </div>
-      </Link>
+        </Link>
     </div>
-  )
-}
+  );
+};
 
 export default ChatListItem;

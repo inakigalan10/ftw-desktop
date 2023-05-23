@@ -50,6 +50,14 @@ const useSocket = (chatId) => {
     }
   };
 
+  const ReadMessage = (messageID) => {
+    if (socketRef.current.readyState === WebSocket.OPEN) {
+      // Envía un mensaje al servidor
+      socketRef.current.send(JSON.stringify({ type: 'message.read', message_id: messageID }));
+
+    }
+  };
+
   const onMessage = (callback) => {
     socketRef.current.onmessage = callback;
   };
@@ -79,6 +87,7 @@ const useSocket = (chatId) => {
     offClose,
     onError,
     offError,
+    ReadMessage
   };
 };
 

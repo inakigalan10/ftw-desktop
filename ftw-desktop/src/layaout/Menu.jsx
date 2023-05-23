@@ -63,16 +63,18 @@ const Menu = () => {
         if (existingChatIndex !== -1) {
           const updatedChats = chats.map((chat) => {
             if (chat.id === data.id) {
-              return data.chat_data;
+              return { ...data.chat_data, id: data.id };
             } else {
               return chat;
             }
           });
           updateChats(updatedChats);
         } else {
-          const updatedChats = [...chats, data.chat_data];
+          const updatedChat = { ...data.chat_data, id: data.id };
+          const updatedChats = [...chats, updatedChat];
           updateChats(updatedChats);
         }
+        
       } 
     });
   }, []);
