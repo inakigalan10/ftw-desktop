@@ -98,3 +98,10 @@
 }
 
 
+.icono-read{
+  color: transparent;
+}
+.unread-chat{
+  color: red;
+}
+

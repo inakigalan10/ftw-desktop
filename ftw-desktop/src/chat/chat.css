@@ -6,6 +6,9 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+.unread  {
+  box-shadow: 0 2px 5px rgba(202, 6, 6, 0.616);
+}
 .chat-list-item:hover {
   background-color: #f5f5f5;
 }

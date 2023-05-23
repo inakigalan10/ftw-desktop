@@ -44,7 +44,6 @@ const Chat = () =>
                 // Agrega el nuevo mensaje a la lista de mensajes existentes
                 setMessages((prevMessages) => [...prevMessages, data.content]);
                 socket.ReadMessage(data.content.message_id);
-                console.log(chats)
                 
                 
             }

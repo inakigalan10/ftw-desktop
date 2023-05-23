@@ -1,8 +1,8 @@
-import React, {useContext, useEffect } from 'react';
+import React, {useContext, useEffect, useState } from 'react';
 import '../layaout/layaout.css';
 import { AiFillHome } from 'react-icons/ai';
 import { BsFire } from 'react-icons/bs';
-import { AiFillNotification } from 'react-icons/ai';
+import { RxDotFilled } from 'react-icons/rx';
 import { TbMessages } from 'react-icons/tb';
 import { Link, useLocation } from 'react-router-dom';
 import { UserContext } from "../userContext";
@@ -78,7 +78,13 @@ const Menu = () => {
       } 
     });
   }, []);
- 
+
+  const [unreadClassChat, setUnreadClassChat] = useState('');
+
+  useEffect(() => {
+    setUnreadClassChat(chats.some((chat) => !chat.read)? 'unread-chat' : '')
+    console.log(unreadClassChat)
+  }, [chats]);
 
   return (
     <div className="menu-container">
@@ -114,7 +120,7 @@ const Menu = () => {
             </Link>
           </div>
         </div>
-        <div className={`menu-item ${isActive("/message")}`}>
+        <div className={`menu-item ${isActive("/message")}` }>
           <div className="icono-menu">
             <TbMessages />
           </div>
@@ -122,6 +128,10 @@ const Menu = () => {
             <Link to={"/chatList"} style={{ color: "black" }}>
               Message
             </Link>
+            <span className={`icono-read ${unreadClassChat}`}>
+            <RxDotFilled/>
+
+            </span>
           </div>
         </div>
         <div className="menu-item" onClick={handleLogout}>
