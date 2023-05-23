@@ -13,7 +13,7 @@ import {
   
       try {
         const data = await fetch(
-          "http://equip10.insjoaquimmir.cat/match-list" ,
+          "http://equip10.insjoaquimmir.cat/api/match-list" ,
           {
             headers: {
               Accept: "application/json",
@@ -53,7 +53,7 @@ import {
         }),
       };
   
-      fetch('http://equip10.insjoaquimmir.cat/report/', requestOptions)
+      fetch('http://equip10.insjoaquimmir.cat/api/report/', requestOptions)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);

@@ -12,7 +12,7 @@ import {
   
       try {
         const data = await fetch(
-          "http://equip10.insjoaquimmir.cat/profile/" + name,
+          "http://equip10.insjoaquimmir.cat/api/profile/" + name,
           {
             headers: {
               Accept: "application/json",
@@ -53,7 +53,7 @@ import {
         }),
       };
   
-      fetch('http://equip10.insjoaquimmir.cat/create-profile/', requestOptions)
+      fetch('http://equip10.insjoaquimmir.cat/api/create-profile/', requestOptions)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -94,7 +94,7 @@ import {
         }),
       };
   
-      fetch('http://equip10.insjoaquimmir.cat/update-profile/', requestOptions)
+      fetch('http://equip10.insjoaquimmir.cat/api/update-profile/', requestOptions)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);

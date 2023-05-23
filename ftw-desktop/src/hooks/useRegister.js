@@ -14,7 +14,7 @@ export const useRegister = () => {
       password: password,
       password_confirm: password_confirm,
     };
-    fetch("http://equip10.insjoaquimmir.cat/signup/", {
+    fetch("http://equip10.insjoaquimmir.cat/api/signup/", {
       method: "POST",
       headers: {
         Accept: "application/json",

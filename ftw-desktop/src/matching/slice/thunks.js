@@ -15,7 +15,7 @@ import {
 
       try {
         const data = await fetch(
-          "http://equip10.insjoaquimmir.cat/matchmaking/" ,
+          "http://equip10.insjoaquimmir.cat/api/matchmaking/" ,
           {
             headers: {
               Accept: "application/json",
@@ -52,7 +52,7 @@ import {
         body: JSON.stringify(bodyData),
       };
   
-      fetch('http://equip10.insjoaquimmir.cat/like-dislike/'+id+"/", requestOptions)
+      fetch('http://equip10.insjoaquimmir.cat/api/like-dislike/'+id+"/", requestOptions)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -91,7 +91,7 @@ import {
         body: JSON.stringify(bodyData),
       };
   
-      fetch('http://equip10.insjoaquimmir.cat/like-dislike/' + id +"/", requestOptions)
+      fetch('http://equip10.insjoaquimmir.cat/api/like-dislike/' + id +"/", requestOptions)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);

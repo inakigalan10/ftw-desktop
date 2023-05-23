@@ -9,7 +9,7 @@ export const useLogin = () => {
   const doLogin = (formState) => {
     console.log("Comprobando credenciales...");
     event.preventDefault();
-    fetch("http://equip10.insjoaquimmir.cat/login/", {
+    fetch("http://equip10.insjoaquimmir.cat/api/login/", {
       method: "POST",
       headers: {
         Accept: "application/json",
