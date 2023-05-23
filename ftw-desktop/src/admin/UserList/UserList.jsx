@@ -15,7 +15,7 @@ const UserList = ({ v }) => {
     let confirma = confirm("Estas  segur?");
 
     if (confirma) {
-      fetch("http://equip10.insjoaquimmir.cat/api/delete-user/" + id, {
+      fetch("http://equip10.insjoaquimmir.cat/delete-user/" + id, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

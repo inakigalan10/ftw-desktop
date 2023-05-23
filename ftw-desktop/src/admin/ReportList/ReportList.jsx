@@ -20,7 +20,7 @@ const ReportList = ({ v }) => {
     let confirma = confirm("Estas  segur?");
 
     if (confirma) {
-      fetch("http://equip10.insjoaquimmir.cat/api/admin/report-delete/" + id, {
+      fetch("http://equip10.insjoaquimmir.cat/admin/report-delete/" + id, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
