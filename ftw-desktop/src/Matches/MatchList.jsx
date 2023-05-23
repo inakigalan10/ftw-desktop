@@ -100,9 +100,7 @@ const handleSubmit = (event) => {
         <div className='match'>
           {/* <Link to={"/profile/" + other_user_id}> */}
             <div className='match'>
-              <div className='foto-match'>
-                <img src="./public/img/img-user.jpg" alt="" />
-              </div>
+             
               <div className='username-match'>
                 <h1>{other_user_username}</h1>
               </div>

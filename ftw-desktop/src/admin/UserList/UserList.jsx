@@ -40,9 +40,7 @@ const UserList = ({ v }) => {
     <div className="admin-user-list-item" key={v.id}>
       <Link to={"/profile/" + v.id}>
         <div className="admin-user-list-item-container">
-          <div className="admin-user-list-item-image">
-            <img src="../public/img/img-user.jpg" alt="" />
-          </div>
+          
           <div className="admin-user-list-item-info">
             <div>
               <h2 className="admin-user-list-item-id">{v.id}</h2>

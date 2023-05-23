@@ -185,9 +185,7 @@ export const Profile = () => {
           {profile && profile.user && profile.user.username ? (
             <div className="page-container-profile">
               <div className="header_profile">
-                <div className={`imagen-profile`}>
-                  <img src="../public/img/img-user.jpg" alt="User avatar" />
-                </div>
+                
                 <div className="name_profile">
                   <h1 className="user_name_profile-profile">{profile.user.username}</h1>
                 </div>

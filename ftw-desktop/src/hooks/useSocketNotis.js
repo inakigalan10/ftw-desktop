@@ -9,7 +9,7 @@ const useSocketNotis = () => {
     if(authToken){
       // Construye la URL del WebSocket utilizando el ID del chat
       socketRef.current = new WebSocket(
-        `ws://localhost:8000/ws/notification/?token=${authToken}`
+        `ws://http://equip10.insjoaquimmir.cat//ws/notification/?token=${authToken}`
       ); // Actualiza la URL con la dirección de tu servidor WebSocket
 
       // Manejadores de eventos del WebSocket
