@@ -42,7 +42,7 @@ const ReportList = ({ v }) => {
     setShowPopup(false);
     setBlurBackground(false);
   };
-  console.log(v.reported_user)
+
 
   useEffect(() => {
     dispatch(getUser(authToken, v.reported_user))

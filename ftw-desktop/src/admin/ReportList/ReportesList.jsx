@@ -13,7 +13,7 @@ const ReportesList = () => {
   useEffect(() => {
     dispatch(getReportes(authToken))
   }, [])
-  console.log(reportes)
+
 
   return (
     <>

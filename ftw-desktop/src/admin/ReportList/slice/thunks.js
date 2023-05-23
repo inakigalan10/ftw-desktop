@@ -24,7 +24,7 @@ import {
           }
         );
         const resposta = await data.json();
-        console.log(resposta);
+        
         dispatch(setReportes(resposta.data));
       } catch (e) {
         console.log(e);

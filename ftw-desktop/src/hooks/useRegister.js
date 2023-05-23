@@ -25,7 +25,7 @@ export const useRegister = () => {
       .then((response) => response.json())
       .then((resposta) => {
         if ('token' in resposta ) {
-          console.log(resposta);
+  
           setAuthToken(resposta.token);
           setIdUser(resposta.user.id);
           setUsernameUser(resposta.user.username);
@@ -36,7 +36,7 @@ export const useRegister = () => {
           localStorage.setItem('idUsername', resposta.user.id);
           localStorage.setItem('idProfile', resposta.user.profile);
 
-          console.log(authToken);
+      
         } else {
           setAuthToken("");
           setRegisterError(resposta.username[0]); // Guardar el mensaje de error del username en el estado

@@ -30,17 +30,17 @@ const Chat = () =>
             
           // Maneja los mensajes recibidos del WebSocket
           const data = JSON.parse(event.data);
-          console.log(data)
+         
             if (data.type === 'load_messages') {
 
             // Actualiza la lista de mensajes cuando se recibe la carga inicial de mensajes
             setMessages(data.messages);
             
             }else if (data.type === 'chat.messages') {
-                console.log(data.type)
+                
                 // Agrega el nuevo mensaje a la lista de mensajes existentes
                 setMessages((prevMessages) => [...prevMessages, data.content]);
-                console.log(data.content)
+                
             }
       
         });
@@ -105,8 +105,7 @@ const Chat = () =>
     }
   }, [messages]);
 
-  console.log()
-
+ 
   return (
     <div className='chat'>
       <div className='cabecera-chat'>

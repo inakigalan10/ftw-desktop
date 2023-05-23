@@ -47,7 +47,7 @@ const Menu = () => {
 
     socket.onMessage((event) => {
       const data = JSON.parse(event.data);
-      console.log("aas",chats);
+    
 
       if (data.type === 'chat_list') {
         updateChats(data.chat_list);
@@ -57,7 +57,7 @@ const Menu = () => {
         updateNotis(data.unread_notification);
         
       } else if (data.type === 'chat.update') {
-        console.log("abdvhsdj",data)
+        
         const existingChatIndex = chats.findIndex((chat) => chat.id === data.id);
 
         if (existingChatIndex !== -1) {

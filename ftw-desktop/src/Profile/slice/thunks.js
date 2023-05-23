@@ -23,7 +23,7 @@ import {
           }
         );
         const resposta = await data.json();
-        console.log(resposta);
+       
         dispatch(setProfile(resposta.data));
       } catch (e) {
         console.log(e);
@@ -56,7 +56,7 @@ import {
       fetch('http://equip10.insjoaquimmir.cat/create-profile/', requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+        
           if (data.success === true) {
             dispatch(setInfo('Perfil correctamente guardado'));
             
@@ -77,7 +77,7 @@ import {
     return async (dispatch, getState) => {
       dispatch(startLoadingProfiles());
       let { description, player_type, play_schedule, genres, languages, country } = perfil;
-      console.log("hola"+authToken)
+     
       const requestOptions = {
         method: 'PUT',
         headers: {
@@ -97,7 +97,7 @@ import {
       fetch('http://equip10.insjoaquimmir.cat/update-profile/', requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          
           if (data.success === true) {
             dispatch(setInfo('Perfil correctamente actualizado'));
           } else {

@@ -24,7 +24,7 @@ import {
           }
         );
         const resposta = await data.json();
-        console.log(resposta);
+
         dispatch(setMatchs(resposta.data));
       } catch (e) {
         console.log(e);
@@ -56,7 +56,7 @@ import {
       fetch('http://equip10.insjoaquimmir.cat/report/', requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+
           if (data.success === true) {
             dispatch(setInfo('Report enviado correctamente'));
             alert("Report enviado correctamente")

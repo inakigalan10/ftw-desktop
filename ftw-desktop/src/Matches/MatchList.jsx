@@ -61,9 +61,9 @@ export const MatchList = ({v}) => {
       })
         .then((data) => data.json())
         .then((resposta) => {
-          console.log(resposta);
+
           if (resposta.success == true) {
-            console.log("OK");
+
             // provoca el refrescat del component i la reexecució de useEffect
             setRefresca(true);
           }

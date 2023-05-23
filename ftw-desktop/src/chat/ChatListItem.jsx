@@ -5,7 +5,7 @@ import './chat.css'
 
 const ChatListItem = ({v}) => {
   const { authToken, setAuthToken, idUser, setIdUser, usernameUser, setUsernameUser, idProfile, setIdProfile, Chat, setChat } = useContext(UserContext);
-  console.log(v.id)
+
   return (
     <div className='chat-list-item' key={v.id}>
       

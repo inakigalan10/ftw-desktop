@@ -62,7 +62,7 @@ const Matching = () => {
     }
   }, [matching, navigate]);
   
-  console.log(info)
+
   
   useEffect(() => {
     

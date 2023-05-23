@@ -46,7 +46,7 @@ const useSocket = (chatId) => {
     if (socketRef.current.readyState === WebSocket.OPEN) {
       // Envía un mensaje al servidor
       socketRef.current.send(JSON.stringify({ type: 'new.message', content: message }));
-      console.log(message);
+
     }
   };
 

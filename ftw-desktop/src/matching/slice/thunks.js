@@ -55,7 +55,7 @@ import {
       fetch('http://equip10.insjoaquimmir.cat/like-dislike/'+id+"/", requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+   
           if (data.success === true && data.message != 'Match') {
             dispatch(setInfo('Like al perfil'));
             dispatch(setMatch(data.match))
@@ -94,7 +94,7 @@ import {
       fetch('http://equip10.insjoaquimmir.cat/like-dislike/' + id +"/", requestOptions)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+     
           if (data.success === true) {
             dispatch(setInfo('Dislike al perfil'));
           } else {

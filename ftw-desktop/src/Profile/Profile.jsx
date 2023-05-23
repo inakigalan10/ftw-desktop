@@ -29,7 +29,7 @@ export const Profile = () => {
   }, []);
 
   const { profile, isLoading, error, info } = useSelector(state => state.profile);
-  console.log(profile);
+
   const { user } = useSelector(state => state.user);
 
   const handleAdminClick = () => {

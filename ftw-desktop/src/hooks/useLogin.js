@@ -28,7 +28,7 @@ export const useLogin = () => {
           localStorage.setItem('username',resposta.user.username)
           localStorage.setItem('idUsername',resposta.user.id)
           localStorage.setItem('idProfile',resposta.user.profile)
-          console.log(resposta);
+
           
         } else {
           setAuthToken("");
